@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="TabCost shows you the real cost of your inactive tabs. Measure distractions and operational costs for freelancers. One-time payment $5.">
+  <title>TabCost – The invisible cost of your tabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --accent-light: #3b82f6;
+      --pro: #f59e0b;
+      --free: #10b981;
+      --danger: #ef4444;
+      --code-bg: #f1f5f9;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-page: #0f172a;
+        --bg-card: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --border: #334155;
+        --code-bg: #0f172a;
+      }
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .lang-switch {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--code-bg);
+      border-radius: 99px;
+      padding: 0.2rem;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-pro {
+      background-color: var(--pro);
+      color: #000;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 4rem 0;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-image {
+      background: var(--code-bg);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 1rem;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .cta-buttons {
+        justify-content: center;
+      }
+      h1 { font-size: 2.2rem; }
+    }
+
+    /* Cards grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .badge-pro, .badge-free {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+      margin-bottom: 1rem;
+    }
+    .badge-pro { background: var(--pro); color: #000; }
+    .badge-free { background: var(--free); color: white; }
+
+    /* Feature table */
+    .feature-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .feature-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .price {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .price-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">TabCost</div>
+    <div class="nav-links">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+      </div>
+      <a href="https://chrome.google.com/webstore/detail/tabcost-pro" class="btn btn-outline" target="_blank" data-i18n="install">Install</a>
+      <a href="https://gumroad.com/l/tabcost-pro" class="btn btn-pro" target="_blank" data-i18n="buy">Buy Pro ($5)</a>
+    </div>
+  </div>
+
+  <div id="content-en">
+    <!-- Hero EN -->
+    <div class="hero">
+      <div>
+        <h1>What's the real cost of your open tabs?</h1>
+        <p>TabCost turns inactive tabs into a financial metric. Control distractions, measure operational costs, and bill smarter. Free to start, Pro for $5 one-time.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn">Install for free</a>
+          <a href="https://gumroad.com/l/tabcost-pro" class="btn btn-pro" target="_blank">Get Pro →</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- Placeholder for screenshot / video -->
+        <img src="https://via.placeholder.com/500x300?text=TabCost+Popup+Demo" alt="TabCost popup preview">
+      </div>
+    </div>
+
+    <!-- Value props -->
+    <div class="grid-2">
+      <div class="card">
+        <span class="badge-free">Free</span>
+        <h3>🎯 Control distractions</h3>
+        <p>Ignore your work domains (Notion, Figma, Gmail). Only tabs like news, social media, or shopping will count. See exactly how much time you lose.</p>
+      </div>
+      <div class="card">
+        <span class="badge-pro">Pro</span>
+        <h3>📊 Measure operational cost</h3>
+        <p>Track how many hours you spend on web tools per project. Add that cost to your invoices or understand your real expenses on fixed-price projects.</p>
+      </div>
+    </div>
+
+    <!-- Video demo placeholder -->
+    <div class="card" style="text-align: center;">
+      <h2>🎬 See TabCost in action</h2>
+      <p style="margin-bottom: 1rem;">(Demo video coming soon – check back or install now!)</p>
+      <div style="background: var(--code-bg); border-radius: 1rem; padding: 2rem;">⬤ Video placeholder</div>
+    </div>
+
+    <!-- Features comparison -->
+    <h2>⭐ Features: Free vs Pro</h2>
+    <div class="feature-table">
+      <div class="feature-item"><strong>Daily cost tracking</strong> <span>✅ Free</span></div>
+      <div class="feature-item"><strong>Tab-by-tab audit</strong> <span>✅ Free</span></div>
+      <div class="feature-item"><strong>Close inactive tabs</strong> <span>✅ Free</span></div>
+      <div class="feature-item"><strong>Bilingual EN/ES</strong> <span>✅ Free</span></div>
+      <div class="feature-item"><strong>Ignored domains</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Auto-close tabs</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>365-day history + charts</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>CSV export (history + tabs)</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Adjustable impact % & grace minutes</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Daily cost reset</strong> <span>🔒 Pro</span></div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="price">
+      <h2>Upgrade to Pro</h2>
+      <div class="price-number">$5 USD / €5 EUR</div>
+      <p>One‑time payment · Lifetime access · No subscription</p>
+      <a href="https://gumroad.com/l/tabcost-pro" class="btn btn-pro" style="margin-top: 1rem;">Buy Pro Now →</a>
+    </div>
+  </div>
+
+  <div id="content-es" style="display: none;">
+    <!-- Spanish version - same structure but translated -->
+    <div class="hero">
+      <div>
+        <h1>¿Cuál es el coste real de tus pestañas abiertas?</h1>
+        <p>TabCost convierte las pestañas inactivas en una métrica económica. Controla distracciones, mide costes operativos y factura mejor. Gratis para empezar, Pro por 5€ único.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn">Instalar gratis</a>
+          <a href="https://gumroad.com/l/tabcost-pro" class="btn btn-pro" target="_blank">Obtener Pro →</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://via.placeholder.com/500x300?text=Vista+previa+de+TabCost" alt="Vista previa de TabCost">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="badge-free">Gratis</span>
+        <h3>🎯 Controla distracciones</h3>
+        <p>Ignora tus dominios de trabajo (Notion, Figma, Gmail). Solo contarán pestañas como noticias, redes sociales o compras. Mira cuánto tiempo pierdes.</p>
+      </div>
+      <div class="card">
+        <span class="badge-pro">Pro</span>
+        <h3>📊 Mide costes operativos</h3>
+        <p>Sigue cuántas horas dedicas a herramientas web por proyecto. Añade ese coste a tus facturas o entiende tus gastos reales en proyectos de precio fijo.</p>
+      </div>
+    </div>
+
+    <div class="card" style="text-align: center;">
+      <h2>🎬 TabCost en acción</h2>
+      <p style="margin-bottom: 1rem;">(Vídeo demo pronto – ¡instala ahora!)</p>
+      <div style="background: var(--code-bg); border-radius: 1rem; padding: 2rem;">⬤ Espacio para vídeo</div>
+    </div>
+
+    <h2>⭐ Funciones: Gratis vs Pro</h2>
+    <div class="feature-table">
+      <div class="feature-item"><strong>Seguimiento de coste diario</strong> <span>✅ Gratis</span></div>
+      <div class="feature-item"><strong>Auditoría pestaña a pestaña</strong> <span>✅ Gratis</span></div>
+      <div class="feature-item"><strong>Cerrar pestañas inactivas</strong> <span>✅ Gratis</span></div>
+      <div class="feature-item"><strong>Bilingüe ES/EN</strong> <span>✅ Gratis</span></div>
+      <div class="feature-item"><strong>Dominios ignorados</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Cierre automático</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Historial 365 días + gráficos</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Exportar CSV (historial + pestañas)</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Ajuste de impacto y gracia</strong> <span>🔒 Pro</span></div>
+      <div class="feature-item"><strong>Reinicio diario del coste</strong> <span>🔒 Pro</span></div>
+    </div>
+
+    <div class="price">
+      <h2>Actualiza a Pro</h2>
+      <div class="price-number">5 USD / 5 EUR</div>
+      <p>Pago único · Acceso de por vida · Sin suscripción</p>
+      <a href="https://gumroad.com/l/tabcost-pro" class="btn btn-pro" style="margin-top: 1rem;">Comprar Pro →</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md" target="_blank">Privacy Policy</a>
+    <a href="https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md" target="_blank">Support</a>
+    <a href="#" id="docsLink">Documentation</a>
+    <a href="https://github.com/projekta2" target="_blank">GitHub</a>
+    <p style="margin-top: 1rem;">© 2026 TabCost – Made with passion by Alexandre Iglesias / Projekta2</p>
+  </div>
+</div>
+
+<script>
+  // Language switcher
+  const enContent = document.getElementById('content-en');
+  const esContent = document.getElementById('content-es');
+  const langBtns = document.querySelectorAll('.lang-btn');
+  let currentLang = localStorage.getItem('tabcost_landing_lang') || 'en';
+
+  function setLanguage(lang) {
+    if (lang === 'en') {
+      enContent.style.display = 'block';
+      esContent.style.display = 'none';
+    } else {
+      enContent.style.display = 'none';
+      esContent.style.display = 'block';
+    }
+    langBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    localStorage.setItem('tabcost_landing_lang', lang);
+    currentLang = lang;
+  }
+
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.lang !== currentLang) setLanguage(btn.dataset.lang);
+    });
+  });
+  setLanguage(currentLang);
+
+  // Docs link opens your docs.html inside extension (or could point to GitHub)
+  document.getElementById('docsLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Documentation is available inside the extension (click the TabCost icon → Guide & FAQ).');
+  });
+</script>
+</body>
+</html>
