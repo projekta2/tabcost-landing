@@ -1,29 +1,29 @@
 # TabCost Landing Page
 
-Landing page oficial de **TabCost**, una extensión para Chrome que convierte tus pestañas inactivas en una métrica económica real.
+Official landing page for **TabCost**, a Chrome extension that turns your inactive tabs into a real economic metric.
 
-🔗 **Sitio web:** [https://projekta2.github.io/tabcost-landing/](https://projekta2.github.io/tabcost-landing/)
+🔗 **Website:** [https://projekta2.github.io/tabcost-landing/](https://projekta2.github.io/tabcost-landing/)
 
-## ¿Qué es TabCost?
+## What is TabCost?
 
-TabCost te muestra lo que inviertes sin darte cuenta. Cada minuto que una pestaña permanece inactiva (distracción o herramienta web olvidada), se acumula un pequeño coste basado en tu tarifa profesional.
+TabCost shows you what you're investing without realizing it. Every minute a tab sits idle (distraction or forgotten web tool), a small cost accumulates based on your professional hourly rate.
 
-- **Control de distracciones:** Ignora tus dominios de trabajo (Notion, Figma, Gmail) y solo penaliza páginas no productivas.
-- **Coste operativo para freelancers:** Mide el tiempo que usas herramientas web y súmalo a tus facturas en proyectos a precio fijo.
+- **Distraction control:** Ignore your work domains (Notion, Figma, Gmail) – only non‑productive pages will count.
+- **Operational cost for freelancers:** Measure the time you spend on web tools and add it to your invoices for fixed‑price projects.
 
-## Contenido del repositorio
+## Repository content
 
-- `index.html` – Página de destino completa (bilingüe EN/ES).
-- `.nojekyll` – Archivo para deshabilitar Jekyll en GitHub Pages.
+- `index.html` – Complete bilingual landing page (EN/ES).
+- `.nojekyll` – File to disable Jekyll on GitHub Pages.
 
-## Cómo contribuir
+## How to contribute
 
-Si encuentras algún error o tienes sugerencias sobre la landing, abre un [issue](https://github.com/projekta2/tabcost-landing/issues).
+If you find any issues or have suggestions about the landing page, please open an [issue](https://github.com/projekta2/tabcost-landing/issues).
 
-## Licencia
+## License
 
-Este proyecto es solo para fines promocionales de TabCost. Los derechos de la extensión pertenecen a [Alexandre Iglesias / Projekta2](https://github.com/projekta2).
+This project is for promotional purposes only. The extension rights belong to [Alexandre Iglesias / Projekta2](https://github.com/projekta2).
 
 ---
 
-© 2026 TabCost – Hecho con pasión para la productividad.
+© 2026 TabCost – Made with passion for productivity.
