@@ -1,6 +1,9 @@
 # TabCost Landing Page
 
 Official landing page for **TabCost**, a Chrome extension that turns your inactive tabs into a real economic metric.
+[![Live Landing](https://img.shields.io/badge/Landing%20Page-Live-brightgreen)](https://projekta2.github.io/tabcost-landing/)
+[![Chrome Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue)](https://chrome.google.com/webstore/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm)
+[![Source Code](https://img.shields.io/badge/Source%20Code-GitHub-lightgrey)](https://github.com/projekta2/tabcost-pro-source)
 
 🔗 **Website:** [https://projekta2.github.io/tabcost-landing/](https://projekta2.github.io/tabcost-landing/)
 
