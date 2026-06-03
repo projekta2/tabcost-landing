@@ -96,3 +96,5 @@ Buy Pro license (Gumroad)
 
 License
 This landing page is for promotional purposes only. The extension rights belong to Alexandre Iglesias / Projekta2.
+
+© 2026 TabCost – Made with passion for productivity.
