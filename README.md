@@ -1,9 +1,13 @@
 # TabCost Landing Page
 
 Official landing page for **TabCost**, a Chrome extension that turns your inactive tabs into a real economic metric.
+
 [![Live Landing](https://img.shields.io/badge/Landing%20Page-Live-brightgreen)](https://projekta2.github.io/tabcost-landing/)
 [![Chrome Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue)](https://chrome.google.com/webstore/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm)
 [![Source Code](https://img.shields.io/badge/Source%20Code-GitHub-lightgrey)](https://github.com/projekta2/tabcost-pro-source)
+[![Privacy](https://img.shields.io/badge/Privacy%20Policy-6f42c1)](https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md)
+[![Support](https://img.shields.io/badge/Support-28a745)](https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md)
+[![Buy License](https://img.shields.io/badge/Buy%20License-ff90e8)](https://projekta2.gumroad.com/l/tabcost-pro)
 
 🔗 **Website:** [https://projekta2.github.io/tabcost-landing/](https://projekta2.github.io/tabcost-landing/)
 
@@ -22,6 +26,12 @@ TabCost shows you what you're investing without realizing it. Every minute a tab
 ## How to contribute
 
 If you find any issues or have suggestions about the landing page, please open an [issue](https://github.com/projekta2/tabcost-landing/issues).
+
+## Related resources
+
+- [Privacy Policy](https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md)
+- [Support & FAQ](https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md)
+- [Buy TabCost Pro (Gumroad)](https://projekta2.gumroad.com/l/tabcost-pro)
 
 ## License
 
