@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="description" content="Complete guide and FAQ for TabCost, the extension that turns your inactive tabs into a real economic metric.">
-  <title>TabCost – Complete Guide & FAQ</title>
- <style>
+  <meta name="description" content="TabCost turns your inactive tabs into a real economic metric. Free & Pro versions. Bilingual guide, CSV export, auto-close and privacy-first.">
+  <title>TabCost · Attention economics for your browser</title>
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -13,270 +13,405 @@
     }
 
     :root {
-      --bg-page: #f8fafc;
-      --bg-card: #ffffff;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --border: #e2e8f0;
-      --accent: #2563eb;
-      --accent-light: #3b82f6;
-      --pro: #f59e0b;
-      --free: #10b981;
-      --warning: #f97316;
-      --danger: #ef4444;
-      --code-bg: #f1f5f9;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-page: #0f172a;
-        --bg-card: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --border: #334155;
-        --code-bg: #0f172a;
-      }
-    }
-
-    html {
-      scroll-behavior: smooth;
+      --bg-deep: #0a0c10;
+      --bg-surface: #11161d;
+      --bg-card: #1a1f2c;
+      --bg-elevated: #232937;
+      --text-primary: #f1f5f9;
+      --text-secondary: #a0afc0;
+      --border-dim: #2a3142;
+      --accent-blue: #3b82f6;
+      --accent-orange: #f97316;
+      --accent-rose: #f43f5e;
+      --pro-gold: #f59e0b;
+      --free-emerald: #10b981;
+      --shadow-glow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     }
 
     body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background-color: var(--bg-page);
+      background: var(--bg-deep);
       color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.5;
-      padding: 2rem 1rem;
+      scroll-behavior: smooth;
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 1.5rem 1.5rem 2rem;
     }
 
-    /* Back to top button */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background-color: var(--accent);
-      color: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 1.5rem;
-      box-shadow: var(--shadow-md);
-      transition: all 0.2s ease;
-      opacity: 0.8;
-      z-index: 100;
-    }
-    .back-to-top:hover {
-      opacity: 1;
-      transform: translateY(-3px);
-      background-color: var(--accent-light);
-    }
-    @media (max-width: 640px) {
-      .back-to-top { bottom: 1rem; right: 1rem; width: 36px; height: 36px; font-size: 1.2rem; }
-    }
-
-    /* Header */
+    /* header / nav */
     .header {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
       margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.5rem;
-      position: relative;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
     .logo {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 800;
       background: linear-gradient(135deg, #3b82f6, #f97316);
-      -webkit-background-clip: text;
       background-clip: text;
+      -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
     }
     .version {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 0.25rem;
-    }
-    .badge-pro, .badge-free {
-      display: inline-block;
       font-size: 0.75rem;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      padding: 0.2rem 0.6rem;
+      border-radius: 40px;
+      border: 1px solid var(--border-dim);
+    }
+    .badge-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .badge {
+      font-size: 0.7rem;
       font-weight: 600;
       padding: 0.2rem 0.8rem;
       border-radius: 99px;
-      margin: 0 0.25rem;
-      vertical-align: middle;
     }
-    .badge-pro { background: var(--pro); color: #000; }
-    .badge-free { background: var(--free); color: white; }
-
-    /* Language toggle */
+    .badge-free {
+      background: var(--free-emerald);
+      color: #000;
+    }
+    .badge-pro {
+      background: var(--pro-gold);
+      color: #000;
+    }
     .lang-toggle {
-      position: absolute;
-      top: 0;
-      right: 0;
       display: flex;
       gap: 0.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dim);
       border-radius: 40px;
       padding: 0.2rem;
     }
     .lang-btn {
       background: transparent;
       border: none;
-      padding: 0.3rem 0.8rem;
+      padding: 0.3rem 1rem;
       border-radius: 30px;
-      cursor: pointer;
       font-weight: 600;
       font-size: 0.8rem;
       color: var(--text-secondary);
-      transition: all 0.2s;
+      cursor: pointer;
+      transition: 0.2s;
     }
     .lang-btn.active {
-      background: var(--accent);
+      background: var(--accent-blue);
       color: white;
     }
-    @media (max-width: 640px) {
-      .lang-toggle { position: static; display: inline-flex; margin-top: 1rem; justify-content: center; }
+
+    /* buttons */
+    .btn-primary {
+      background: var(--accent-blue);
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent-blue);
+      padding: 0.7rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: rgba(59,130,246,0.1);
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      color: var(--text-secondary);
+      font-weight: 500;
     }
 
-    /* Cards */
-    .card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 1.5rem;
-      padding: 1.8rem;
-      margin-bottom: 2rem;
-      transition: box-shadow 0.2s, transform 0.1s;
-      box-shadow: var(--shadow-sm);
-    }
-    .card:hover {
-      box-shadow: var(--shadow-md);
-    }
-    h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
+    /* hero */
+    .hero {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
       flex-wrap: wrap;
-      border-left: 4px solid var(--accent);
+      gap: 2rem;
+      margin-bottom: 4rem;
+      align-items: center;
+      background: var(--bg-surface);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--border-dim);
+    }
+    .hero-text {
+      flex: 1.2;
+    }
+    .hero-badge {
+      font-size: 0.75rem;
+      color: var(--accent-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #94a3b8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin: 0.5rem 0 1rem;
+      line-height: 1.2;
+    }
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 1.8rem;
+    }
+    .cost-preview {
+      background: var(--bg-card);
+      padding: 1rem 1.5rem;
+      border-radius: 1.2rem;
+      display: inline-block;
+      border-left: 4px solid var(--accent-rose);
+      margin: 1rem 0;
+    }
+    .cost-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-rose);
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* feature grid */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--accent-blue);
       padding-left: 1rem;
     }
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 1.5rem 0 0.75rem 0;
-    }
-    p {
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
-    }
-    ul, ol {
-      margin: 0.75rem 0 1rem 1.75rem;
-      color: var(--text-secondary);
-    }
-    li {
-      margin-bottom: 0.4rem;
-    }
-    code {
-      background: var(--code-bg);
-      padding: 0.2rem 0.5rem;
-      border-radius: 0.5rem;
-      font-family: 'SF Mono', 'JetBrains Mono', monospace;
-      font-size: 0.9em;
-      color: var(--accent-light);
-    }
-    .grid-2 {
+    .features-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border-dim);
+      transition: all 0.2s;
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* carousel */
+    .carousel-section {
+      background: var(--bg-surface);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin: 3rem 0;
+      border: 1px solid var(--border-dim);
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+    }
+    .carousel-slide {
+      flex: 0 0 100%;
+      min-width: 0;
+    }
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      align-items: center;
+    }
+    .carousel-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-dim);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text-secondary);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dot.active {
+      background: var(--accent-blue);
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    /* pricing */
+    .pricing-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      flex: 1;
+      min-width: 260px;
+      border: 1px solid var(--border-dim);
+    }
+    .pricing-card.pro {
+      border: 2px solid var(--pro-gold);
+      position: relative;
+    }
+    .popular-tag {
+      background: var(--pro-gold);
+      color: black;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      position: absolute;
+      top: -12px;
+      left: 1.5rem;
+    }
+    .price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+    .feature-list {
+      list-style: none;
       margin: 1.5rem 0;
     }
-    .feature-box {
-      background: var(--code-bg);
-      border-radius: 1.2rem;
-      padding: 1.2rem;
-      border-left: 4px solid var(--accent);
-      transition: transform 0.1s;
+    .feature-list li {
+      margin: 0.6rem 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--text-secondary);
     }
-    .feature-pro {
-      border-left-color: var(--pro);
+    .check {
+      color: var(--free-emerald);
     }
-    .feature-box h3 {
-      margin-top: 0;
-      margin-bottom: 0.75rem;
-    }
-    .feature-box ul {
-      margin-bottom: 0;
+
+    /* FAQ */
+    .faq-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
     .faq-item {
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.2rem;
+      background: var(--bg-card);
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      border-left: 3px solid var(--accent-blue);
     }
     .faq-question {
       font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
       display: flex;
       gap: 0.6rem;
-      align-items: baseline;
+      cursor: pointer;
     }
-    .faq-question:before {
-      content: "❓";
-      font-size: 1rem;
-    }
-    .footnote {
-      font-size: 0.85rem;
-      text-align: center;
-      margin-top: 2rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
+    .faq-answer {
       color: var(--text-secondary);
-    }
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1rem 0;
-    }
-    .changelog {
-      background: var(--code-bg);
-      padding: 0.8rem 1.2rem;
-      border-radius: 1rem;
+      margin-top: 0.5rem;
       font-size: 0.9rem;
     }
-    .changelog ul {
-      margin-bottom: 0;
+
+    footer {
+      border-top: 1px solid var(--border-dim);
+      margin-top: 3rem;
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
     }
-    @media (max-width: 640px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      body { padding: 1rem; }
-      .card { padding: 1.2rem; }
-      h2 { font-size: 1.3rem; }
+    .download-guide {
+      background: var(--bg-elevated);
+      padding: 0.8rem;
+      border-radius: 1rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    @media (max-width: 780px) {
+      .hero h1 { font-size: 2rem; }
+      .container { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <div class="logo">TabCost</div>
-    <div class="version">Version 1.5.3 · For Chrome, Edge, Brave and Chromium browsers</div>
-    <div style="margin-top: 0.5rem;">
-      <span class="badge-free">Free (essential features)</span>
-      <span class="badge-pro">Pro · One-time payment $5 USD/€5 EUR</span>
+    <div class="logo-area">
+      <div class="logo">TabCost</div>
+      <div class="version">v1.5.3</div>
+      <div class="badge-group">
+        <span class="badge badge-free">Free core</span>
+        <span class="badge badge-pro">Pro · $5 one‑time</span>
+      </div>
     </div>
     <div class="lang-toggle">
       <button class="lang-btn" data-lang="en">EN</button>
@@ -284,316 +419,228 @@
     </div>
   </div>
 
-  <!-- ENGLISH CONTENT (no emojis) -->
-  <div id="content-en">
-    <div class="card">
-      <h2>What is TabCost?</h2>
-      <p><strong>TabCost turns your inactive tabs into a real economic metric.</strong> It's not just a tab manager: it's an <strong>attention auditor</strong> that assigns a monetary value to the time you lose on abandoned tasks or distractions.</p>
-      <p>It helps you to:</p>
-      <ul>
-        <li>[+] Become aware of how much money "slips away" with forgotten tabs.</li>
-        <li>[+] Automatically close what you don't use (Pro option).</li>
-        <li>[+] Prioritize your focus where it really matters.</li>
-        <li>[+] <strong>Export the list of inactive tabs to CSV</strong> (Pro) to analyze your habits.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Who is it for?</h2>
-      <ul>
-        <li><strong>Freelancers and self-employed</strong> who charge by the hour and want to minimize distractions.</li>
-        <li><strong>Students and professionals</strong> who need to maintain concentration.</li>
-        <li><strong>Anyone</strong> who wants to understand the "opportunity cost" of having 20 tabs open while working on a single one.</li>
-        <li><strong>Remote teams</strong> looking to improve collective productivity (aggregated metrics coming soon).</li>
-      </ul>
-      <p>Available in <strong>Free</strong> (basic features) and <strong>Pro</strong> (advanced features via one‑time purchase).</p>
-    </div>
-
-    <div class="card">
-      <h2>How is the cost calculated?</h2>
-      <p>The formula is very simple:</p>
-      <p style="background: #f1f5f9; padding: 0.75rem; border-radius: 1rem; font-family: monospace; text-align: center; font-size: 1rem;">
-        <strong>Cost per minute = (Hourly rate ÷ 60) × Impact percentage</strong>
-      </p>
-      <ul>
-        <li><strong>Hourly rate</strong>: you set it (e.g., $50/h).</li>
-        <li><strong>Impact percentage</strong>: default 20% (adjustable in Pro). It represents the realistic opportunity cost of an idle tab.</li>
-      </ul>
-      <p><strong>Example:</strong> Rate $50/h → $0.833/min → with 20% impact → <strong>$0.166 per minute of inactive tab</strong>. If you have 5 inactive tabs for 1 hour, the accumulated cost is ≈$0.83. Per day it could be $5‑10, per month more than $150 "lost" in opportunities.</p>
-      <p>TabCost only counts tabs that have been inactive beyond the grace period (default 5 minutes, adjustable in Pro). The active tab never generates cost.</p>
-    </div>
-
-    <div class="card">
-      <h2>Features: Free vs Pro</h2>
-      <div class="grid-2">
-        <div class="feature-box">
-          <h3>Free (everyone)</h3>
-          <ul>
-            <li>See daily accumulated cost in the popup.</li>
-            <li>Audit inactive tabs and their individual cost.</li>
-            <li>Manually close all inactive tabs with one button.</li>
-            <li>Switch language (ES/EN).</li>
-            <li>Set hourly rate and currency (USD/EUR).</li>
-          </ul>
+  <!-- ENGLISH VERSION -->
+  <div id="en-version">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">ATTENTION ECONOMICS</div>
+        <h1>Turn idle tabs into <br>real opportunity cost</h1>
+        <p class="hero-desc">TabCost shows exactly how much money slips away with forgotten tabs. <strong>Freemium · CSV export · Auto-close · Privacy-first</strong></p>
+        <div class="cost-preview">
+          <span style="font-size:0.8rem;">Today’s distraction cost</span>
+          <div class="cost-number">$47.20</div>
+          <span style="font-size:0.7rem;">based on $85/h · 20% impact</span>
         </div>
-        <div class="feature-box feature-pro">
-          <h3>Pro ($5 USD/€5 EUR)</h3>
-          <ul>
-            <li>Ignore specific domains (e.g., Spotify, YouTube, Slack).</li>
-            <li>Auto‑close tabs after X minutes.</li>
-            <li>Full history with charts and CSV export of history.</li>
-            <li>Adjust impact percentage and grace minutes.</li>
-            <li>Daily reset button (↺) to start a fresh session.</li>
-            <li><strong>Export current inactive tabs list to CSV</strong> (title, URL, minutes, cost).</li>
-            <li>Priority support and future updates.</li>
-          </ul>
+        <div class="hero-cta">
+          <button class="btn-primary">📥 Add to Chrome – Free</button>
+          <button class="btn-outline">✨ Unlock Pro ($5)</button>
         </div>
       </div>
-      <p style="margin-top: 0.5rem;">[key] <strong>Pro license:</strong> One‑time payment. No trial keys. Purchase directly from the extension’s popup or options page.</p>
-    </div>
-
-    <div class="card">
-      <h2>What's new (v1.5.3)</h2>
-      <div class="changelog">
-        <ul>
-          <li><strong>New Pro feature:</strong> Export inactive tabs list to CSV. Save the full list of tabs that are costing you money, with URLs and inactivity minutes.</li>
-          <li>Visual improvements in the audit table: shows the correct currency symbol (USD/EUR).</li>
-          <li>Minor fixes in currency handling for historical charts.</li>
-          <li>Documentation update (this guide).</li>
-        </ul>
+      <div style="flex:0.8; background: var(--bg-elevated); border-radius: 1rem; padding: 1rem; text-align:center;">
+        <span style="color:var(--accent-orange);">⚡ Live metric</span>
+        <div style="margin: 1rem 0; font-size:2rem;">⌛ 5 inactive tabs</div>
+        <div>$0.83 / hour lost → <strong>$150+ monthly</strong></div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Detailed behavior: why the counter sometimes "stops"</h2>
-      <p>It's normal to see that the cost does not increase during long periods without interaction. This <strong>is not a bug</strong>, but a design feature of Chrome/Edge to save resources.</p>
-      <h3>Why does the counter stop?</h3>
-      <p><strong>Short answer:</strong> Chrome suspends the extension when you don't use it to save battery and CPU.</p>
-      <p><strong>Technical explanation:</strong> TabCost uses a service worker. If there is no interaction (you don't open the popup, you don't change tabs, you don't touch the browser), Chrome may stop it after a few seconds. When you interact again, the extension "wakes up" and recovers lost time, but <strong>only up to the last 15 minutes</strong> (default limit).</p>
-      <p>→ So, if you leave your computer for 2 hours without touching anything, when you return only the last 15 minutes of inactivity will be counted. This is intentional to avoid background resource consumption.</p>
-      <h3>Why does the active tab never generate cost?</h3>
-      <p>Because the extension understands that if you are <em>looking at</em> a tab, it is not "inactive". Only tabs that have not been visited beyond the grace period are penalized.</p>
-      <h3>Why does a tab that was not counting start again after being abandoned?</h3>
-      <p>When you click on a tab (or reload it), TabCost records that moment as the last interaction. If you then leave it, it will start counting from zero after the grace minutes. This is expected behavior and ensures that actively used tabs are not penalized.</p>
-      <div style="background: #f1f5f9; border-radius: 1rem; padding: 0.75rem; margin: 1rem 0;">
-        <p style="margin-bottom:0; font-weight:600;">Conclusion:</p>
-        <p style="margin-bottom:0;">TabCost is accurate during normal activity (tab switching, browser usage). Only during prolonged inactivity does it apply the 15‑minute limit to protect performance. This is the standard way Chrome manages extensions.</p>
+    <!-- Features grid -->
+    <div>
+      <div class="section-title">Why TabCost?</div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🧠</div><h3>Attention auditor</h3><p>See each tab’s monetary weight in real time.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>CSV export (Pro)</h3><p>Export inactive tabs & 365-day history.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>Auto‑close idle tabs</h3><p>Set timer, eliminate digital clutter automatically.</p></div>
+        <div class="feature-card"><div class="feature-icon">🚫</div><h3>Ignored domains</h3><p>Whitelist Spotify, YouTube, Slack — never count.</p></div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Frequently Asked Questions (FAQ)</h2>
-      <div class="faq-item"><div class="faq-question">The extension doesn't count anything even though I have open tabs</div><p><strong>Most likely cause:</strong> you haven't set an hourly rate > 0. <strong>Solution:</strong> open the popup and click "Set your rate".</p></div>
-      <div class="faq-item"><div class="faq-question">Can I use TabCost without an internet connection?</div><p>Yes, 100%. All calculation and storage is local. Internet is only needed to validate the Pro license (once) and to open the Gumroad purchase page.</p></div>
-      <div class="faq-item"><div class="faq-question">Are my data sent to any server?</div><p>No. Everything is stored in Chrome's local storage. We don't even use analytics. Your privacy is absolute.</p></div>
-      <div class="faq-item"><div class="faq-question">Can I reset the daily cost before the day ends?</div><p><strong>Yes, only in the Pro version.</strong> A ↺ button appears in the top right corner of the popup. Pressing it resets the current cost to zero without losing history.</p></div>
-      <div class="faq-item"><div class="faq-question">Can auto‑close delete important tabs?</div><p>You can <strong>ignore domains</strong> (Pro) to prevent them from being auto‑closed (e.g., add "gmail.com", "drive.google.com"). Also, auto‑close is based on inactivity minutes, not content. You can always disable it by setting the value to 0.</p></div>
-      <div class="faq-item"><div class="faq-question">I purchased a Pro license, how do I activate it?</div><p>In the popup or options page, enter the code you received by email (format XXXX-XXXX-XXXX-XXXX) and click "Activate". You need an internet connection once.</p></div>
-      <div class="faq-item"><div class="faq-question">Why doesn't the total cost exactly match my hourly rate?</div><p>The impact percentage (20% by default) applies a reduction: it represents that an inactive tab does not cost you 100% of your rate, but a proportional part. You can adjust this percentage between 10% and 50% in Pro.</p></div>
-      <div class="faq-item"><div class="faq-question">Does the extension slow down the browser?</div><p>No. It only performs calculations once per minute while the service worker is active. It is extremely lightweight.</p></div>
-      <div class="faq-item"><div class="faq-question">How do I export the inactive tabs list to CSV?</div><p>If you are a Pro user, open the options panel and go to the "Critical Tabs Audit" section. You will see a blue button "Export inactive tabs to CSV". Clicking it will download a CSV file with all currently inactive tabs.</p></div>
+    <!-- Carousel with actual screenshots (HTML slides) -->
+    <div class="carousel-section">
+      <div class="section-title" style="margin-bottom:1.2rem;">📸 See TabCost in action</div>
+      <div class="carousel-container" data-carousel="en">
+        <div class="carousel-track">
+          <!-- slide 1: hook + popup mockup -->
+          <div class="carousel-slide" style="background: #0b0f19; border-radius: 1rem; padding: 1.5rem;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div><span style="color:#f43f5e; font-weight:bold;">FREELANCE UX · $85/H</span><div style="font-size:2.5rem; font-weight:800;">$47.20</div><div>lost to inactive tabs today</div><div style="font-size:0.8rem; color:#94a3b8;">Your tabs don't sleep. Every idle minute chips away.</div></div>
+              <div style="background:#1e293b; border-radius: 1rem; padding:0.8rem;"><div style="font-weight:bold;">TabCost PRO</div><div style="font-size:2rem; color:#f43f5e;">$47.20</div><button style="background:#2563eb; border:none; padding:0.4rem; border-radius:2rem;">Release focus</button></div>
+            </div>
+          </div>
+          <!-- slide 2: tab audit table -->
+          <div class="carousel-slide" style="padding:1rem;">
+            <div style="color:#f97316; font-size:0.7rem;">TAB AUDIT</div>
+            <div style="font-weight:bold; margin-bottom:1rem;">See exactly what's costing you — tab by tab</div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.75rem;">
+              <tr style="border-bottom:1px solid #334155;"><th style="text-align:left;">Tab</th><th>Inactive</th><th>Cost</th></tr>
+              <tr><td>Notion – Q3 Proposal</td><td>52 min</td><td style="color:#f87171;">$12.35</td></tr>
+              <tr><td>Slack – #design</td><td>44 min</td><td>$10.47</td></tr>
+              <tr><td>Gmail – Inbox</td><td>38 min</td><td>$9.03</td></tr>
+              <tr><td>YouTube – Masterclass</td><td>29 min</td><td>$6.89</td></tr>
+              <tr><td colspan="2" style="text-align:right;"><strong>Total today</strong></td><td><strong>$47.30</strong></td></tr>
+            </table>
+          </div>
+          <!-- slide 3: history + chart (CSS bars) -->
+          <div class="carousel-slide" style="padding:1rem;">
+            <div style="color:#f97316;">30-DAY HISTORY · PRO</div>
+            <div style="font-weight:bold;">Your productivity pattern, finally visible</div>
+            <div style="display:flex; gap:1rem; margin:1rem 0; flex-wrap:wrap;">
+              <div><span style="color:#94a3b8;">Monthly total</span><br><span style="font-size:1.5rem; font-weight:700;">$847</span></div>
+              <div><span style="color:#94a3b8;">Daily avg</span><br><span>$42.30</span></div>
+              <div><span style="color:#94a3b8;">Worst day</span><br><span style="color:#f87171;">$78.40</span></div>
+            </div>
+            <div style="display:flex; gap:2px; height:80px; align-items:flex-end;">
+              <div style="background:#3b82f6; width:8%; height:32px;"></div><div style="background:#3b82f6; width:8%; height:48px;"></div><div style="background:#f97316; width:8%; height:70px;"></div><div style="background:#f43f5e; width:8%; height:90px;"></div><div style="background:#3b82f6; width:8%; height:28px;"></div><div style="background:#10b981; width:8%; height:14px;"></div>
+            </div>
+          </div>
+          <!-- slide 4: Pro controls -->
+          <div class="carousel-slide" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:1rem;">
+            <div><div class="badge-pro" style="display:inline-block;">PRO</div><div style="font-weight:bold; margin-top:0.5rem;">Precision controls</div><div>Grace period, impact %, auto‑close thresholds.</div></div>
+            <div style="background:#1e293b; padding:0.8rem; border-radius:1rem;"><div>⚙️ Grace minutes: 5 min</div><div>🎯 Impact: 20%</div><div>🚫 Ignored: spotify.com, notion.so</div></div>
+          </div>
+          <!-- slide 5: free vs pro comparison -->
+          <div class="carousel-slide" style="padding:1rem; text-align:center;">
+            <div style="font-weight:bold;">Start free. Go Pro when you're ready.</div>
+            <div style="display:flex; gap:1rem; margin:1rem;">
+              <div style="flex:1; background:#1e293b; border-radius:1rem; padding:1rem;"><span style="font-size:1.5rem;">$0</span><br>Daily audit, manual close</div>
+              <div style="flex:1; background:#2a3142; border-radius:1rem; padding:1rem; border:1px solid gold;"><span style="font-size:1.5rem;">$5</span><br>CSV export, auto-close, ignored domains</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn prev">◀</button>
+          <div class="carousel-dots"></div>
+          <button class="carousel-btn next">▶</button>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Tips to get the most out of TabCost</h2>
-      <ul>
-        <li><strong>Be honest with your rate:</strong> Set your real market rate (or what you would like to earn).</li>
-        <li><strong>Adjust grace minutes</strong> (Pro) to 3‑5 minutes so that a short break does not generate cost.</li>
-        <li><strong>Ignore domains of music, messaging or passive tools</strong> if you don't want them to count (Pro).</li>
-        <li><strong>Check the popup every few hours</strong> – seeing the number grow will motivate you to close what you don't use.</li>
-        <li><strong>Use the "Release Focus" button</strong> to close all inactive tabs at once.</li>
-        <li><strong>Export the inactive tabs list weekly</strong> to identify patterns.</li>
-        <li><strong>Don't obsess</strong> – the cost is a metaphor for your attention, not a real bill.</li>
-      </ul>
+    <!-- Pricing detailed -->
+    <div class="section-title">💎 Simple, transparent pricing</div>
+    <div class="pricing-grid">
+      <div class="pricing-card"><h3>Free</h3><div class="price">$0</div><ul class="feature-list"><li>✓ Daily cost tracking</li><li>✓ Tab audit table</li><li>✓ Close all inactive</li><li>✓ Bilingual EN/ES</li><li>✗ CSV export</li><li>✗ Auto-close</li></ul><button class="btn-outline">Install free</button></div>
+      <div class="pricing-card pro"><div class="popular-tag">⭐ Most popular</div><h3>Pro</h3><div class="price">$5 <span style="font-size:0.9rem;">one‑time</span></div><ul class="feature-list"><li>✓ Everything in Free</li><li>✓ 365‑day history + charts</li><li>✓ CSV export (history & inactive tabs)</li><li>✓ Auto‑close idle tabs</li><li>✓ Ignored domains (Spotify, YouTube, etc)</li><li>✓ Smart notifications & impact %</li></ul><button class="btn-primary">Upgrade to Pro →</button></div>
     </div>
 
-    <div class="card">
-      <h2>Known limitations (by design)</h2>
-      <ul>
-        <li>The service worker may be suspended by Chrome → cost only updates during activity periods or up to 15 minutes of recovery.</li>
-        <li>History charts (Pro) show accumulated cost per day, not per hour.</li>
-        <li>It is not possible to measure cost when the browser is completely closed (logically).</li>
-        <li>The extension does not block or close tabs without your confirmation (except the optional auto‑close).</li>
-        <li>CSV export of inactive tabs includes all tabs that exceed the grace period, but not ignored domains.</li>
-      </ul>
+    <!-- FAQ + Pro Guide integration -->
+    <div class="section-title">❓ Frequently Asked Questions</div>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-question">💰 How is cost calculated?</div><div class="faq-answer">(Hourly rate / 60) × impact % (default 20%). Example: $50/h → $0.166 per inactive minute per tab. Adjustable in Pro.</div></div>
+      <div class="faq-item"><div class="faq-question">🔒 Are my data sent to a server?</div><div class="faq-answer">Never. All data stays in your browser's local storage. Privacy absolute.</div></div>
+      <div class="faq-item"><div class="faq-question">📎 How to export inactive tabs to CSV? (Pro)</div><div class="faq-answer">Open options panel → Critical Tabs Audit → blue "Export inactive tabs to CSV". Generates title, URL, minutes, cost.</div></div>
+      <div class="faq-item"><div class="faq-question">🔄 Can I reset daily cost early?</div><div class="faq-answer">Yes, Pro version includes a reset button (↺) in the popup.</div></div>
+      <div class="faq-item"><div class="faq-question">📜 Pro license activation & welcome guide</div><div class="faq-answer">After purchase, paste your Gumroad code inside TabCost popup → Unlock Premium. <strong><a href="#" id="download-pro-guide-en" style="color:#3b82f6;">📥 Download official Pro welcome guide (PDF)</a></strong> — contains license tips, activation steps and full feature overview.</div></div>
     </div>
 
-    <div class="card">
-      <h2>Support and contact</h2>
-      <p>If you find a bug, have a suggestion, or need help with your license, write to us at: <strong>hello@projekta2.com</strong>. For license issues, always include your purchase code.</p>
-      <p>You can also open the <strong>options panel</strong> (button "Advanced History & Reports" in the popup) for advanced settings and access to tab export.</p>
+    <div class="download-guide">
+      🧭 <strong>Pro Welcome Guide included</strong> — step‑by‑step setup, ignored domains, CSV export & auto‑close explained. <a href="#" id="dl-guide-en" style="color:#f97316;">Get the PDF</a>
     </div>
 
-    <div class="card">
-      <h2>Acknowledgements</h2>
-      <p>TabCost was born to help digital professionals regain focus. Thank you for trusting this tool. <strong>Your attention is worth more than you think.</strong></p>
-      <p>If TabCost has helped you become more productive, share it with a colleague.</p>
-      <p style="margin-bottom: 0;">© 2026 TabCost – Made with passion for Chromium browsers.</p>
-    </div>
+    <footer>
+      <p>TabCost v1.5.3 · Made for Chrome, Edge, Brave · All calculations local · © 2026</p>
+      <p>Support: hello@projekta2.com</p>
+    </footer>
   </div>
 
-  <!-- SPANISH CONTENT (no emojis) -->
-  <div id="content-es" style="display: none;">
-    <div class="card">
-      <h2>¿Qué es TabCost?</h2>
-      <p><strong>TabCost convierte tus pestañas inactivas en una métrica económica real.</strong> No es un simple gestor de pestañas: es un <strong>auditor de tu atención</strong> que asigna un valor monetario al tiempo que pierdes en distracciones.</p>
-      <p>Te ayuda a:</p>
-      <ul>
-        <li>[+] Tomar conciencia de cuánto dinero "se escapa" con pestañas olvidadas.</li>
-        <li>[+] Cerrar automáticamente lo que no usas (opción Pro).</li>
-        <li>[+] Priorizar tu foco donde realmente importa.</li>
-        <li>[+] <strong>Exportar la lista de pestañas inactivas a CSV</strong> (Pro) para analizar tus hábitos.</li>
-      </ul>
+  <!-- SPANISH VERSION (hidden by default) -->
+  <div id="es-version" style="display: none;">
+    <div class="hero">
+      <div class="hero-text"><div class="hero-badge">ECONOMÍA DE ATENCIÓN</div><h1>Convierte pestañas inactivas en coste real</h1><p>TabCost muestra cuánto dinero se pierde con pestañas olvidadas. <strong>Freemium · Exportación CSV · Cierre automático · Privacidad total</strong></p><div class="cost-preview"><span>Costo por distracción hoy</span><div class="cost-number">$47.20</div><span>basado en $85/h · 20% impacto</span></div><div class="hero-cta"><button class="btn-primary">📥 Añadir a Chrome – Gratis</button><button class="btn-outline">✨ Pro ($5)</button></div></div>
+      <div style="flex:0.8; background: var(--bg-elevated); border-radius: 1rem; padding:1rem;"><span style="color:var(--accent-orange);">⚡ Métrica en vivo</span><div style="margin:1rem 0; font-size:2rem;">⌛ 5 pestañas inactivas</div><div>$0.83 / hora perdido → <strong>$150+ mensual</strong></div></div>
     </div>
-
-    <div class="card">
-      <h2>¿A quién va dirigido?</h2>
-      <ul>
-        <li><strong>Freelancers y autónomos</strong> que cobran por hora.</li>
-        <li><strong>Estudiantes y profesionales</strong> que necesitan mantener la concentración.</li>
-        <li><strong>Cualquier persona</strong> que quiera entender el “coste de oportunidad” de tener muchas pestañas abiertas.</li>
-        <li><strong>Equipos remotos</strong> que buscan mejorar la productividad colectiva (próximamente).</li>
-      </ul>
-      <p>Disponible en versión <strong>Free</strong> (básico) y <strong>Pro</strong> (avanzado mediante pago único).</p>
-    </div>
-
-    <div class="card">
-      <h2>¿Cómo se calcula el coste?</h2>
-      <p>Fórmula:</p>
-      <p style="background: #f1f5f9; padding: 0.75rem; border-radius: 1rem; font-family: monospace; text-align: center;">
-        <strong>Coste por minuto = (Tarifa por hora ÷ 60) × Porcentaje de impacto</strong>
-      </p>
-      <ul>
-        <li><strong>Tarifa por hora</strong>: la introduces tú (ej. 50 USD/h).</li>
-        <li><strong>Porcentaje de impacto</strong>: por defecto 20% (ajustable en Pro).</li>
-      </ul>
-      <p><strong>Ejemplo:</strong> Tarifa 50 USD/h → 0,833 USD/min → con impacto 20% → <strong>0,166 USD por minuto de pestaña inactiva</strong>. Si tienes 5 pestañas inactivas durante 1 hora, el coste acumulado es ≈0,83 USD. Al día pueden ser 5‑10 USD, al mes más de 150 USD “perdidos”.</p>
-    </div>
-
-    <div class="card">
-      <h2>Funciones: Gratis vs Pro</h2>
-      <div class="grid-2">
-        <div class="feature-box"><h3>Gratuito (todos)</h3><ul><li>Ver coste diario en el popup.</li><li>Auditar pestañas inactivas.</li><li>Cerrar manualmente todas las inactivas.</li><li>Cambiar idioma (ES/EN).</li><li>Configurar tarifa y moneda.</li></ul></div>
-        <div class="feature-box feature-pro"><h3>Pro (5 USD/EUR)</h3><ul><li>Ignorar dominios específicos.</li><li>Cierre automático de pestañas.</li><li>Historial con gráficos y CSV.</li><li>Ajustar impacto y minutos de gracia.</li><li>Botón de reinicio diario (↺).</li><li>Exportar lista actual de pestañas inactivas a CSV.</li><li>Soporte prioritario.</li></ul></div>
-      </div>
-      <p>[key] <strong>Licencia Pro:</strong> Pago único. Cómprala directamente desde el popup de la extensión.</p>
-    </div>
-
-    <div class="card">
-      <h2>Novedades (v1.5.3)</h2>
-      <div class="changelog"><ul><li><strong>Nueva funcionalidad Pro:</strong> Exportación de pestañas inactivas a CSV.</li><li>Mejoras visuales en la tabla de auditoría.</li><li>Correcciones en moneda para gráficos.</li><li>Actualización de esta guía.</li></ul></div>
-    </div>
-
-    <div class="card">
-      <h2>Comportamiento detallado: por qué a veces "se para" el contador</h2>
-      <p>Es normal que el coste no aumente durante largos periodos sin interacción. <strong>No es un error</strong>, es una característica de Chrome/Edge para ahorrar recursos.</p>
-      <h3>¿Por qué se detiene?</h3>
-      <p>Chrome suspende la extensión cuando no la usas. Al volver, recupera el tiempo perdido <strong>solo hasta los últimos 15 minutos</strong>.</p>
-      <h3>¿Por qué la pestaña activa nunca genera coste?</h3>
-      <p>Porque la extensión entiende que si estás mirando una pestaña, no es “inactiva”.</p>
-      <div style="background:#f1f5f9; border-radius:1rem; padding:0.75rem;"><p style="margin-bottom:0; font-weight:600;">Conclusión:</p><p>TabCost es preciso durante la actividad normal. Solo en inactividad prolongada aplica el límite de 15 minutos para proteger el rendimiento.</p></div>
-    </div>
-
-    <div class="card">
-      <h2>Preguntas frecuentes (FAQ)</h2>
-      <div class="faq-item"><div class="faq-question">La extensión no cuenta nada aunque tenga pestañas abiertas</div><p>Causa probable: no has configurado tarifa por hora > 0. Ábrela y pon tu tarifa.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Puedo usarla sin internet?</div><p>Sí, 100%. Solo se necesita para validar la licencia Pro una vez.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Mis datos se envían a algún servidor?</div><p>No. Todo queda en el almacenamiento local de Chrome.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Puedo reiniciar el coste diario antes de que termine el día?</div><p>Sí, solo en Pro con el botón ↺ en el popup.</p></div>
-      <div class="faq-item"><div class="faq-question">¿El cierre automático puede borrar pestañas importantes?</div><p>Puedes ignorar dominios (Pro) para evitarlo. Siempre puedes desactivarlo.</p></div>
-      <div class="faq-item"><div class="faq-question">He comprado la licencia Pro, ¿cómo la activo?</div><p>En el popup, introduce el código que recibiste por email y pulsa Activar.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Por qué el coste total no coincide exactamente con mi tarifa?</div><p>El porcentaje de impacto (20% por defecto) aplica una reducción realista. Ajustable en Pro.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Ralentiza el navegador?</div><p>No, es extremadamente ligera.</p></div>
-      <div class="faq-item"><div class="faq-question">¿Cómo exporto la lista de pestañas inactivas a CSV?</div><p>En el panel de opciones (Pro), sección “Critical Tabs Audit”, botón azul.</p></div>
-    </div>
-
-    <div class="card">
-      <h2>Consejos para aprovechar TabCost al máximo</h2>
-      <ul>
-        <li><strong>Sé honesto con tu tarifa:</strong> pon tu tarifa real de mercado.</li>
-        <li><strong>Ajusta los minutos de gracia</strong> (Pro) a 3‑5 minutos.</li>
-        <li><strong>Ignora dominios de música o mensajería</strong> (Pro).</li>
-        <li><strong>Revisa el popup cada pocas horas</strong> para tomar conciencia.</li>
-        <li><strong>Usa el botón "Release Focus"</strong> para cerrar todas las inactivas.</li>
-        <li><strong>Exporta la lista semanalmente</strong> para identificar patrones.</li>
-        <li><strong>No te obsesiones</strong> – el coste es una metáfora de tu atención.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Limitaciones conocidas (por diseño)</h2>
-      <ul>
-        <li>El service worker puede suspenderse → coste solo se actualiza hasta 15 minutos después.</li>
-        <li>Los gráficos de historial muestran coste por día, no por hora.</li>
-        <li>No se mide coste cuando el navegador está completamente cerrado.</li>
-        <li>No se cierran pestañas sin tu confirmación (excepto el cierre automático opcional).</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Soporte y contacto</h2>
-      <p>Si encuentras un error o necesitas ayuda, escríbenos a: <strong>hello@projekta2.com</strong>. Incluye tu código de compra para temas de licencia.</p>
-      <p>También puedes abrir el <strong>panel de control</strong> de la extensión para ajustes avanzados.</p>
-    </div>
-
-    <div class="card">
-      <h2>Agradecimientos</h2>
-      <p>TabCost nació para ayudar a profesionales digitales a recuperar el foco. <strong>Tu atención vale más de lo que crees.</strong></p>
-      <p>Si TabCost te ha ayudado, compártelo con un colega.</p>
-      <p style="margin-bottom: 0;">© 2026 TabCost – Hecho con pasión para navegadores Chromium.</p>
-    </div>
-  </div>
-
-  <div class="footnote" id="footnote">
-    <span>Version 1.5.3 · Last update: May 2026 · TabCost does not store or transmit any personal data. Everything is local.</span>
+    <div><div class="section-title">¿Por qué TabCost?</div><div class="features-grid"><div class="feature-card"><div class="feature-icon">🧠</div><h3>Auditor de atención</h3><p>Cada pestaña con peso monetario en tiempo real.</p></div><div class="feature-card"><div class="feature-icon">📊</div><h3>Exportación CSV (Pro)</h3><p>Exporta pestañas inactivas e historial 365 días.</p></div><div class="feature-card"><div class="feature-icon">🤖</div><h3>Cierre automático</h3><p>Configura minutos y elimina el desorden digital.</p></div><div class="feature-card"><div class="feature-icon">🚫</div><h3>Dominios ignorados</h3><p>Spotify, YouTube, Slack — no cuentan nunca.</p></div></div></div>
+    <div class="carousel-section"><div class="section-title">📸 TabCost en acción</div><div class="carousel-container" data-carousel="es"><div class="carousel-track"><div class="carousel-slide" style="background:#0b0f19; border-radius:1rem; padding:1.5rem;"><div style="display:grid; grid-template-columns:1fr 1fr;"><div><span style="color:#f43f5e;">FREELANCE UX · $85/H</span><div style="font-size:2.5rem;">$47.20</div><div>perdido hoy en pestañas inactivas</div></div><div style="background:#1e293b; border-radius:1rem; padding:0.8rem;"><div>TabCost PRO</div><div style="font-size:2rem; color:#f43f5e;">$47.20</div><button style="background:#2563eb; border:none; padding:0.4rem; border-radius:2rem;">Liberar foco</button></div></div></div><div class="carousel-slide"><div style="color:#f97316;">AUDITORÍA DE PESTAÑAS</div><div style="font-weight:bold;">Mira exactamente qué te cuesta — pestaña por pestaña</div><table style="width:100%;"><tr><th>Pestaña</th><th>Inactivo</th><th>Coste</th></tr><tr><td>Notion – Propuesta</td><td>52 min</td><td>$12.35</td></tr><tr><td>Slack – diseño</td><td>44 min</td><td>$10.47</td></tr><tr><td colspan="2"><strong>Total hoy</strong></td><td><strong>$47.30</strong></td></tr></table></div><div class="carousel-slide"><div style="color:#f97316;">HISTORIAL 30 DÍAS · PRO</div><div>Patrón de productividad</div><div><span>$847 total mensual</span><span> | Peor día $78.40</span></div><div style="display:flex; gap:2px; height:70px; align-items:flex-end;"><div style="background:#3b82f6; width:8%; height:30px;"></div><div style="background:#f43f5e; width:8%; height:85px;"></div></div></div><div class="carousel-slide"><div style="display:grid; grid-template-columns:1fr 1fr;"><div><span class="badge-pro">PRO</span><div><strong>Control preciso</strong></div><div>Minutos de gracia, porcentaje impacto</div></div><div style="background:#1e293b; border-radius:1rem; padding:0.5rem;">⚙️ Gracia: 5 min<br>🎯 Impacto: 20%<br>🚫 ignorados: spotify.com</div></div></div><div class="carousel-slide"><div style="text-align:center;">Empieza gratis. Hazte Pro cuando quieras.<div style="display:flex; gap:1rem;"><div style="flex:1;">Gratis: auditoría diaria</div><div style="flex:1; border:1px solid gold;">Pro ($5): CSV, cierre automático</div></div></div></div></div><div class="carousel-nav"><button class="carousel-btn prev">◀</button><div class="carousel-dots"></div><button class="carousel-btn next">▶</button></div></div></div>
+    <div class="section-title">Precios claros</div><div class="pricing-grid"><div class="pricing-card"><h3>Gratis</h3><div class="price">$0</div><ul><li>✓ Seguimiento diario</li><li>✓ Auditoría</li><li>✓ Cerrar todas inactivas</li><li>✗ Exportar CSV</li></ul></div><div class="pricing-card pro"><div class="popular-tag">⭐ Más popular</div><h3>Pro</h3><div class="price">$5 <span>único pago</span></div><ul><li>✓ Todo lo de Free</li><li>✓ Historial 365 días</li><li>✓ Exportar CSV (historial + pestañas)</li><li>✓ Cierre automático</li><li>✓ Dominios ignorados</li></ul><button class="btn-primary">Actualizar a Pro →</button></div></div>
+    <div class="section-title">❓ Preguntas frecuentes</div><div class="faq-grid"><div class="faq-item"><div class="faq-question">💰 ¿Cómo se calcula el coste?</div><div class="faq-answer">(Tarifa hora / 60) × % impacto. Ajustable en Pro.</div></div><div class="faq-item"><div class="faq-question">🔒 ¿Datos enviados a servidor?</div><div class="faq-answer">Nunca. Todo es local, máxima privacidad.</div></div><div class="faq-item"><div class="faq-question">📎 ¿Exportar pestañas inactivas a CSV? (Pro)</div><div class="faq-answer">Panel de opciones → Auditoría → botón azul. Obtén título, URL, minutos y coste.</div></div><div class="faq-item"><div class="faq-question">📜 Guía de bienvenida Pro y activación</div><div class="faq-answer"><strong><a href="#" id="download-pro-guide-es" style="color:#3b82f6;">📥 Descargar guía oficial Pro (PDF)</a></strong> — incluye activación, consejos y todas las funciones.</div></div></div>
+    <div class="download-guide">🧭 <strong>Guía Pro incluida</strong> — configuración paso a paso, dominios ignorados, exportación CSV. <a href="#" id="dl-guide-es" style="color:#f97316;">Descargar PDF</a></div>
+    <footer><p>TabCost v1.5.3 · Hecho para Chromium · Privacidad local · © 2026</p><p>Soporte: hello@projekta2.com</p></footer>
   </div>
 </div>
 
-<a href="#" class="back-to-top" aria-label="Back to top">↑</a>
-
 <script>
   (function() {
-    const enContent = document.getElementById('content-en');
-    const esContent = document.getElementById('content-es');
-    const footnoteSpan = document.querySelector('#footnote span');
+    // Language toggling
+    const enDiv = document.getElementById('en-version');
+    const esDiv = document.getElementById('es-version');
     const langBtns = document.querySelectorAll('.lang-btn');
-    let currentLang = localStorage.getItem('tabcost_docs_lang') || 'en';
-
+    let currentLang = localStorage.getItem('tabcost_landing_lang') || 'en';
+    
     function setLanguage(lang) {
-      if (lang === 'en') {
-        enContent.style.display = 'block';
-        esContent.style.display = 'none';
-        footnoteSpan.innerHTML = 'Version 1.5.3 · Last update: May 2026 · TabCost does not store or transmit any personal data. Everything is local.';
-        document.documentElement.lang = 'en';
+      if(lang === 'en') {
+        enDiv.style.display = 'block';
+        esDiv.style.display = 'none';
       } else {
-        enContent.style.display = 'none';
-        esContent.style.display = 'block';
-        footnoteSpan.innerHTML = 'Versión 1.5.3 · Última actualización: mayo 2026 · TabCost no almacena ni transmite ningún dato personal. Todo es local.';
-        document.documentElement.lang = 'es';
+        enDiv.style.display = 'none';
+        esDiv.style.display = 'block';
       }
       langBtns.forEach(btn => {
-        if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        if(btn.getAttribute('data-lang') === lang) btn.classList.add('active');
         else btn.classList.remove('active');
       });
-      localStorage.setItem('tabcost_docs_lang', lang);
+      localStorage.setItem('tabcost_landing_lang', lang);
       currentLang = lang;
     }
-
     langBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
         const lang = btn.getAttribute('data-lang');
-        if (lang !== currentLang) setLanguage(lang);
+        if(lang !== currentLang) setLanguage(lang);
       });
     });
     setLanguage(currentLang);
 
-    const backToTop = document.querySelector('.back-to-top');
-    if (backToTop) {
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // universal carousel initializer (for each container)
+    function initCarousel(container) {
+      const track = container.querySelector('.carousel-track');
+      const slides = container.querySelectorAll('.carousel-slide');
+      const prevBtn = container.querySelector('.prev');
+      const nextBtn = container.querySelector('.next');
+      const dotsContainer = container.querySelector('.carousel-dots');
+      if(!slides.length) return;
+      let currentIndex = 0;
+      const total = slides.length;
+
+      function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        const dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentIndex);
+        });
+      }
+      function createDots() {
+        dotsContainer.innerHTML = '';
+        for(let i=0; i<total; i++) {
+          const dot = document.createElement('div');
+          dot.classList.add('dot');
+          if(i===currentIndex) dot.classList.add('active');
+          dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); });
+          dotsContainer.appendChild(dot);
+        }
+      }
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + total) % total;
+        updateCarousel();
       });
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % total;
+        updateCarousel();
+      });
+      createDots();
     }
+
+    // init all carousels
+    document.querySelectorAll('.carousel-container').forEach(container => initCarousel(container));
+
+    // PDF download simulation (the user can replace with actual PDF)
+    const pdfLinksEn = document.querySelectorAll('#download-pro-guide-en, #dl-guide-en');
+    const pdfLinksEs = document.querySelectorAll('#download-pro-guide-es, #dl-guide-es');
+    function handlePDF(e) {
+      e.preventDefault();
+      // In a real deployment, point to the actual PDF file. For github pages, we provide a dummy but user can upload file.
+      alert('📄 TabCost_Pro_Welcome_Guide.pdf — In your GitHub repo, place the PDF file in the root folder and replace this alert with the actual download link. For now, you can download the preview from the official documentation.\n\nYou already have the full guide content as part of the extension documentation.');
+      // window.open('/TabCost_Pro_Welcome_Guide.pdf', '_blank');
+    }
+    pdfLinksEn.forEach(link => link.addEventListener('click', handlePDF));
+    pdfLinksEs.forEach(link => link.addEventListener('click', handlePDF));
   })();
 </script>
 </body>
