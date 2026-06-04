@@ -119,6 +119,18 @@
     }
     .badge-pro { background: var(--pro); color: #000; }
     .badge-free { background: var(--free); color: white; }
+    .store-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .store-link:hover { background: var(--accent-light); }
 
     /* Language toggle */
     .lang-toggle {
@@ -191,6 +203,13 @@
     li {
       margin-bottom: 0.4rem;
     }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
     code {
       background: var(--code-bg);
       padding: 0.2rem 0.5rem;
@@ -244,18 +263,26 @@
       border-top: 1px solid var(--border);
       color: var(--text-secondary);
     }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+    }
     hr {
       border: none;
       border-top: 1px solid var(--border);
       margin: 1rem 0;
     }
 
-    /* ----- Carousel / Screenshot Styles (from store assets) ----- */
+    /* Carousel styles (unchanged) */
     .carousel-wrapper {
       margin-top: 0.5rem;
       border-radius: 1.2rem;
       overflow: hidden;
-      background: #0b0f19; /* fallback for slides */
+      background: #0b0f19;
     }
     .nav-bar {
       display: flex;
@@ -353,8 +380,10 @@
     .pc-price { font-size: 26px; font-weight: 900; color: #0f172a; margin-bottom: 3px; }
     .pl { display: flex; align-items: center; gap: 7px; padding: 4px 0; font-size: 11px; color: #475569; border-top: 0.5px solid #f1f5f9; }
     .ck { color: #10b981; font-size: 12px; font-weight: 700; }
-    .pc-cta { margin-top: 14px; width: 100%; padding: 9px; border-radius: 7px; font-size: 12px; font-weight: 700; border: none; }
+    .pc-cta { margin-top: 14px; width: 100%; padding: 9px; border-radius: 7px; font-size: 12px; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; }
+    .cta-f { background: #f1f5f9; color: #475569; }
     .cta-p { background: #2563eb; color: #fff; }
+    .cta-p:hover { background: #1d4ed8; }
     .popular-tag { display: inline-block; background: #eff6ff; color: #1d4ed8; font-size: 9px; font-weight: 700; padding: 2px 9px; border-radius: 4px; margin-bottom: 5px; }
     @media (max-width: 700px) {
       .s1, .s4 { grid-template-columns: 1fr; }
@@ -372,23 +401,26 @@
       <span class="badge-free">Free (essential features)</span>
       <span class="badge-pro">Pro · One-time payment $5 USD/€5 EUR</span>
     </div>
+    <div>
+      <a class="store-link" href="https://chromewebstore.google.com/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank" rel="noopener noreferrer">➕ Add to Chrome – Free</a>
+    </div>
     <div class="lang-toggle">
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="es">ES</button>
     </div>
   </div>
 
-  <!-- 📸 INTERACTIVE SCREENSHOTS CAROUSEL (WELCOME VISUALS) -->
+  <!-- 📸 INTERACTIVE SCREENSHOTS CAROUSEL -->
   <div class="card">
     <h2>📸 Live preview — TabCost in action</h2>
     <p>See how the extension turns idle tabs into clear opportunity cost. Click through the slides to explore the popup, tab audit, history, Pro controls and comparison.</p>
     <div class="carousel-wrapper">
       <div class="nav-bar">
-        <button class="nb active" id="nb1" data-slide="1">1 · The hook</button>
-        <button class="nb" id="nb2" data-slide="2">2 · Tab audit</button>
-        <button class="nb" id="nb3" data-slide="3">3 · 30-day history</button>
-        <button class="nb" id="nb4" data-slide="4">4 · Pro controls</button>
-        <button class="nb" id="nb5" data-slide="5">5 · Free vs Pro</button>
+        <button class="nb active" data-slide="1">1 · The hook</button>
+        <button class="nb" data-slide="2">2 · Tab audit</button>
+        <button class="nb" data-slide="3">3 · 30-day history</button>
+        <button class="nb" data-slide="4">4 · Pro controls</button>
+        <button class="nb" data-slide="5">5 · Free vs Pro</button>
         <span class="nav-hint">← preview →</span>
       </div>
       <div class="slide s1" id="slide1">
@@ -398,16 +430,16 @@
       <div class="slide s2" id="slide2" style="display:none"><div class="s-hook">Tab audit</div><div class="s-title">See exactly what's costing you —<br>tab by tab.</div><div class="s-sub">7 inactive tabs · $85/h · Tuesday 14:32 · 5 min grace period</div><table class="at"><thead><tr><th>Tab</th><th>Inactive time</th><th>Opportunity cost</th></tr></thead><tbody><tr><td><span class="dot dot-r"></span>Notion – Q3 Client Proposal</td><td>52 min</td><td>$12.35</td></tr><tr><td><span class="dot dot-r"></span>Slack – #design-feedback</td><td>44 min</td><td>$10.47</td></tr><tr><td><span class="dot dot-y"></span>Gmail – Inbox (7)</td><td>38 min</td><td>$9.03</td></tr><tr><td><span class="dot dot-y"></span>YouTube – Figma Masterclass</td><td>29 min</td><td>$6.89</td></tr><tr><td><span class="dot dot-g"></span>Linear – Sprint Backlog</td><td>21 min</td><td>$4.99</td></tr><tr><td><span class="dot dot-g"></span>X / Twitter</td><td>15 min</td><td>$3.57</td></tr></tbody></table><div class="at-total"><span class="at-tl">Total opportunity cost today</span><span class="at-tv">$47.30</span></div></div>
       <div class="slide s3" id="slide3" style="display:none"><div class="s-hook">30-day history · Pro feature</div><div class="s-title" style="color:#f1f5f9">Your productivity pattern,<br>finally visible.</div><div class="s-sub">May 2025 · Freelance UX consultant · $85/h</div><div class="stats-row"><div class="sc"><div class="sc-lbl">Monthly total</div><div class="sc-val r">$847</div></div><div class="sc"><div class="sc-lbl">Daily average</div><div class="sc-val">$42.30</div></div><div class="sc"><div class="sc-lbl">Worst day</div><div class="sc-val r">$78.40</div></div><div class="sc"><div class="sc-lbl">Best day</div><div class="sc-val g">$5.40</div></div></div><div style="width:100%; height:200px; position:relative"><canvas id="histChart" role="img" aria-label="30-day bar chart"></canvas></div></div>
       <div class="slide s4" id="slide4" style="display:none"><div class="s4l"><div><div class="pr-badge">PRO</div><div class="s4-title">Precision controls<br>for how you actually work.</div></div><div class="s4-sub">Tune every parameter to your real rhythm. Auto‑close rogue tabs. Exclude Spotify so your playlist never counts against you.</div><div class="fi"><div class="fi-ic">⏱️</div><div><strong>Grace period</strong><span>Tabs within 5 min inactivity don't count</span></div></div><div class="fi"><div class="fi-ic">🔒</div><div><strong>Auto-close</strong><span>Idle tabs close themselves after 30 min</span></div></div><div class="fi"><div class="fi-ic">👁️</div><div><strong>Ignored domains</strong><span>Spotify, Notion, YouTube — excluded</span></div></div><div class="fi"><div class="fi-ic">🔔</div><div><strong>Smart notifications</strong><span>Alert at $5 threshold</span></div></div></div><div class="s4r"><div style="font-size:10px;color:#334155;text-transform:uppercase">Pro settings</div><div class="ps-row"><span class="ps-lbl">Grace minutes</span><span class="ps-val">5 min</span></div><div class="ps-row"><span class="ps-lbl">Impact percentage</span><span class="ps-val">20%</span></div><div class="ps-row"><span class="ps-lbl">Auto-close after</span><span class="ps-val">30 min</span></div><div class="ps-row"><span class="ps-lbl">Ignored domains</span><span class="ps-val">spotify.com, notion.so</span></div></div></div>
-      <div class="slide s5" id="slide5" style="display:none"><div class="s5h"><div class="s5h-t">Start free. Go Pro when you're ready.</div><div class="s5h-s">One-time payment · No subscription · Yours forever · Bilingual EN/ES</div></div><div class="plans"><div class="pc"><div class="pc-name">Free</div><div class="pc-price">$0 <span>forever</span></div><div class="pl"><span class="ck">✓</span> Daily cost tracking</div><div class="pl"><span class="ck">✓</span> Tab-by-tab audit</div><div class="pl"><span class="ck">✓</span> Close inactive tabs</div><div class="pl"><span class="cx">—</span> 365-day history</div><div class="pl"><span class="cx">—</span> CSV export</div><div class="pl"><span class="cx">—</span> Auto-close</div><div class="pl"><span class="cx">—</span> Ignored domains</div><button class="pc-cta cta-f">Install free</button></div><div class="pc featured"><div class="popular-tag">Most popular</div><div class="pc-name">Pro</div><div class="pc-price">$5 <span>one time</span></div><div class="pl"><span class="ck">✓</span> Everything in Free</div><div class="pl"><span class="ck">✓</span> 365-day history + charts</div><div class="pl"><span class="ck">✓</span> CSV export + auto-close</div><div class="pl"><span class="ck">✓</span> Ignored domains + smart notifications</div><div class="pl"><span class="ck">✓</span> Adjustable impact & grace period</div><button class="pc-cta cta-p">Activate Pro →</button></div></div></div>
+      <div class="slide s5" id="slide5" style="display:none"><div class="s5h"><div class="s5h-t">Start free. Go Pro when you're ready.</div><div class="s5h-s">One-time payment · No subscription · Yours forever · Bilingual EN/ES</div></div><div class="plans"><div class="pc"><div class="pc-name">Free</div><div class="pc-price">$0 <span>forever</span></div><div class="pl"><span class="ck">✓</span> Daily cost tracking</div><div class="pl"><span class="ck">✓</span> Tab-by-tab audit</div><div class="pl"><span class="ck">✓</span> Close inactive tabs</div><div class="pl"><span class="cx">—</span> 365-day history</div><div class="pl"><span class="cx">—</span> CSV export</div><div class="pl"><span class="cx">—</span> Auto-close</div><div class="pl"><span class="cx">—</span> Ignored domains</div><a href="https://chromewebstore.google.com/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank" class="pc-cta cta-f" style="display:block; text-align:center; text-decoration:none;">Install free</a></div><div class="pc featured"><div class="popular-tag">Most popular</div><div class="pc-name">Pro</div><div class="pc-price">$5 <span>one time</span></div><div class="pl"><span class="ck">✓</span> Everything in Free</div><div class="pl"><span class="ck">✓</span> 365-day history + charts</div><div class="pl"><span class="ck">✓</span> CSV export + auto-close</div><div class="pl"><span class="ck">✓</span> Ignored domains + smart notifications</div><div class="pl"><span class="ck">✓</span> Adjustable impact & grace period</div><a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank" class="pc-cta cta-p" style="display:block; text-align:center; text-decoration:none;">Activate Pro →</a></div></div></div>
     </div>
   </div>
 
-  <!-- 🚀 PRO ACTIVATION GUIDE (from PDF welcome) -->
+  <!-- 🚀 PRO ACTIVATION GUIDE (with real links) -->
   <div class="card">
     <h2>🚀 Welcome guide & Pro activation</h2>
     <p><strong>Your license key is unique.</strong> Keep it safe – also delivered in your Gumroad confirmation email. Follow these steps to unlock TabCost Pro:</p>
     <ol>
-      <li><strong>Install the free extension</strong> from <a href="#" style="color:var(--accent)">Chrome Web Store</a> (search "TabCost").</li>
+      <li><strong>Install the free extension</strong> from <a href="https://chromewebstore.google.com/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank" rel="noopener noreferrer">Chrome Web Store</a> (search "TabCost").</li>
       <li>Click the TabCost icon in your toolbar → open the popup panel.</li>
       <li>Set your <strong>hourly rate</strong> (e.g., $50/h or €50/h) so the real opportunity cost is shown.</li>
       <li>Click <strong>"Unlock Premium"</strong> (in popup footer). A license input appears.</li>
@@ -415,71 +447,97 @@
       <li>Your badge turns to <strong>PRO instantly</strong>. All advanced features are unlocked — no restart needed.</li>
     </ol>
     <p>⭐ <strong>What you've unlocked:</strong> 365-day history, auto‑close tabs, smart notifications, CSV export, ignored domains, adjustable grace minutes (1‑30) and impact % (10‑50%).</p>
-    <p>💡 <em>Tip:</em> If activation fails, copy the key without extra spaces. Contact <strong>hello@projekta2.com</strong> for help.</p>
+    <p>💡 <em>Tip:</em> If activation fails, copy the key without extra spaces. Contact <a href="mailto:hello@projekta2.com">hello@projekta2.com</a> for help.</p>
+    <p style="margin-top: 1rem;"><strong>👉 Buy Pro license:</strong> <a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank" rel="noopener noreferrer">https://projekta2.gumroad.com/l/tabcost-pro</a> (one-time $5/€5)</p>
   </div>
 
-  <!-- original bilingual content (EN/ES) but we inject EN/ES accordingly. Keep structure but merge dynamic sections? Use existing content blocks, but preserve everything. The original EN/ES will be displayed via lang toggle, but we must not duplicate the carousel/activation guide inside both languages because they are universal. I'll keep them outside language-switch divs. The original guide below will be switched. -->
+  <!-- BILINGUAL CONTENT (ENGLISH / SPANISH) -->
   <div id="content-en">
     <div class="card"><h2>📌 What is TabCost?</h2><p><strong>TabCost turns your inactive tabs into a real economic metric.</strong> It's not just a tab manager: it's an <strong>attention auditor</strong> that assigns a monetary value to the time you lose.</p><ul><li>✅ Become aware of how much money "slips away" with forgotten tabs.</li><li>✅ Automatically close what you don't use (Pro).</li><li>✅ Export inactive tabs to CSV (Pro) to analyze habits.</li></ul></div>
     <div class="card"><h2>🎯 Who is it for?</h2><ul><li><strong>Freelancers</strong> charging hourly to minimize distractions.</li><li><strong>Students & professionals</strong> needing concentration.</li><li><strong>Remote teams</strong> improving productivity.</li></ul></div>
     <div class="card"><h2>⚙️ How is the cost calculated?</h2><p style="background:var(--code-bg);padding:0.75rem;border-radius:1rem;text-align:center"><strong>Cost per minute = (Hourly rate ÷ 60) × Impact percentage</strong></p><ul><li>Default impact 20% (adjustable Pro). Active tab never generates cost.</li><li>Example: $50/h → ~$0.166/min per inactive tab.</li></ul></div>
-    <div class="card"><h2>⭐ Features: Free vs Pro</h2><div class="grid-2"><div class="feature-box"><h3>✅ Free</h3><ul><li>Daily cost in popup</li><li>Audit inactive tabs</li><li>Manual close all inactive</li><li>Bilingual EN/ES</li></ul></div><div class="feature-box feature-pro"><h3>🚀 Pro</h3><ul><li>Ignored domains</li><li>Auto‑close tabs</li><li>365‑day history & CSV export</li><li>Adjust impact % & grace minutes</li><li>Daily reset button</li></ul></div></div></div>
-    <div class="card"><h2>❓ FAQ</h2><div class="faq-item"><div class="faq-question">Can I use my Pro license on multiple browsers?</div><p>Yes, on Chrome, Edge or Brave sharing the same OS user profile. One key = one user.</p></div><div class="faq-item"><div class="faq-question">What if I change computers?</div><p>Contact hello@projekta2.com and we'll reset your license so you can activate on your new device.</p></div><div class="faq-item"><div class="faq-question">Is this a subscription?</div><p>No — one-time payment. Lifetime access to all current and future Pro features.</p></div><div class="faq-item"><div class="faq-question">What if I'm not satisfied?</div><p>Full refund within 30 days, no questions asked. Email hello@projekta2.com.</p></div><div class="faq-item"><div class="faq-question">Where is my data stored?</div><p>Everything stays in your browser’s local storage. Only one-time license verification with Gumroad at activation.</p></div><div class="faq-item"><div class="faq-question">How to export inactive tabs to CSV (Pro)?</div><p>Open options panel → "Critical Tabs Audit" section → click "Export inactive tabs to CSV".</p></div></div>
+    <div class="card"><h2>⭐ Features: Free vs Pro</h2><div class="grid-2"><div class="feature-box"><h3>✅ Free</h3><ul><li>Daily cost in popup</li><li>Audit inactive tabs</li><li>Manual close all inactive</li><li>Bilingual EN/ES</li></ul></div><div class="feature-box feature-pro"><h3>🚀 Pro</h3><ul><li>Ignored domains</li><li>Auto‑close tabs</li><li>365‑day history & CSV export</li><li>Adjust impact % & grace minutes</li><li>Daily reset button</li></ul><p style="margin-top:0.8rem"><a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank">Get Pro for $5 →</a></p></div></div></div>
+    <div class="card"><h2>❓ FAQ</h2><div class="faq-item"><div class="faq-question">Can I use my Pro license on multiple browsers?</div><p>Yes, on Chrome, Edge or Brave sharing the same OS user profile. One key = one user.</p></div><div class="faq-item"><div class="faq-question">What if I change computers?</div><p>Contact <a href="mailto:hello@projekta2.com">hello@projekta2.com</a> and we'll reset your license so you can activate on your new device.</p></div><div class="faq-item"><div class="faq-question">Is this a subscription?</div><p>No — one-time payment. Lifetime access to all current and future Pro features.</p></div><div class="faq-item"><div class="faq-question">What if I'm not satisfied?</div><p>Full refund within 30 days, no questions asked. Email <a href="mailto:hello@projekta2.com">hello@projekta2.com</a>.</p></div><div class="faq-item"><div class="faq-question">Where is my data stored?</div><p>Everything stays in your browser’s local storage. Only one-time license verification with Gumroad at activation.</p></div><div class="faq-item"><div class="faq-question">How to export inactive tabs to CSV (Pro)?</div><p>Open options panel → "Critical Tabs Audit" section → click "Export inactive tabs to CSV".</p></div></div>
     <div class="card"><h2>💡 Tips</h2><ul><li>Set realistic hourly rate.</li><li>Adjust grace minutes to 3‑5 min.</li><li>Ignore music domains (spotify.com, youtube.com).</li><li>Use "Release Focus" to close all inactive tabs.</li></ul></div>
-    <div class="card"><h2>📧 Support</h2><p>Email: <strong>hello@projekta2.com</strong> — Also visit <a href="https://projekta2.github.io/tabcost-landing/" target="_blank">projekta2.github.io/tabcost-landing/</a></p></div>
+    <div class="card"><h2>📧 Support & resources</h2><p>Email: <a href="mailto:hello@projekta2.com">hello@projekta2.com</a></p><p>📄 <a href="https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md" target="_blank">Privacy Policy</a> · <a href="https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md" target="_blank">Support / FAQ</a> · <a href="https://github.com/projekta2/tabcost-pro-source" target="_blank">Source code (GitHub)</a></p><p>🌐 <a href="https://projekta2.github.io/tabcost-landing/" target="_blank">Official landing page</a> · <a href="https://github.com/projekta2" target="_blank">GitHub profile</a> · <a href="https://linkedin.com/in/alexiglesias1" target="_blank">LinkedIn (developer)</a></p></div>
   </div>
   <div id="content-es" style="display:none">
     <div class="card"><h2>📌 ¿Qué es TabCost?</h2><p><strong>TabCost convierte tus pestañas inactivas en una métrica económica real.</strong> Auditor de atención que asigna valor monetario al tiempo perdido.</p><ul><li>✅ Toma conciencia del dinero que "se escapa".</li><li>✅ Cierre automático (Pro).</li><li>✅ Exporta lista de inactivas a CSV.</li></ul></div>
     <div class="card"><h2>🎯 ¿A quién va dirigido?</h2><ul><li><strong>Freelancers</strong> por hora.</li><li><strong>Estudiantes y profesionales</strong>.</li><li><strong>Equipos remotos</strong>.</li></ul></div>
     <div class="card"><h2>⚙️ Cálculo del coste</h2><p style="background:var(--code-bg);padding:0.75rem;border-radius:1rem;text-align:center"><strong>Coste por minuto = (Tarifa/hora ÷ 60) × % impacto</strong></p><ul><li>Impacto por defecto 20% (ajustable en Pro). Pestaña activa nunca genera coste.</li></ul></div>
-    <div class="card"><h2>⭐ Gratis vs Pro</h2><div class="grid-2"><div class="feature-box"><h3>✅ Gratis</h3><ul><li>Coste diario en popup</li><li>Auditoría de pestañas</li><li>Cerrar inactivas manual</li><li>Idioma EN/ES</li></ul></div><div class="feature-box feature-pro"><h3>🚀 Pro</h3><ul><li>Ignorar dominios</li><li>Cierre automático</li><li>Historial 365 días + CSV</li><li>Ajustar % impacto y minutos gracia</li><li>Botón reinicio diario</li></ul></div></div></div>
-    <div class="card"><h2>❓ Preguntas frecuentes</h2><div class="faq-item"><div class="faq-question">¿Puedo usar mi licencia Pro en varios navegadores?</div><p>Sí, en Chrome/Edge/Brave con misma cuenta de usuario. Una clave = un perfil.</p></div><div class="faq-item"><div class="faq-question">¿Si cambio de ordenador?</div><p>Contacta a hello@projekta2.com para restaurar tu licencia.</p></div><div class="faq-item"><div class="faq-question">¿Es una suscripción?</div><p>No, pago único. Acceso de por vida a funciones Pro actuales y futuras.</p></div><div class="faq-item"><div class="faq-question">Política de reembolso</div><p>Reembolso total en 30 días. Escribe a hello@projekta2.com.</p></div><div class="faq-item"><div class="faq-question">¿Dónde se almacenan mis datos?</div><p>Todo en almacenamiento local. Solo verificación de licencia con Gumroad.</p></div></div>
+    <div class="card"><h2>⭐ Gratis vs Pro</h2><div class="grid-2"><div class="feature-box"><h3>✅ Gratis</h3><ul><li>Coste diario en popup</li><li>Auditoría de pestañas</li><li>Cerrar inactivas manual</li><li>Idioma EN/ES</li></ul></div><div class="feature-box feature-pro"><h3>🚀 Pro</h3><ul><li>Ignorar dominios</li><li>Cierre automático</li><li>Historial 365 días + CSV</li><li>Ajustar % impacto y minutos gracia</li><li>Botón reinicio diario</li></ul><p style="margin-top:0.8rem"><a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank">Obtén Pro por $5 →</a></p></div></div></div>
+    <div class="card"><h2>❓ Preguntas frecuentes</h2><div class="faq-item"><div class="faq-question">¿Puedo usar mi licencia Pro en varios navegadores?</div><p>Sí, en Chrome/Edge/Brave con misma cuenta de usuario. Una clave = un perfil.</p></div><div class="faq-item"><div class="faq-question">¿Si cambio de ordenador?</div><p>Contacta a <a href="mailto:hello@projekta2.com">hello@projekta2.com</a> para restaurar tu licencia.</p></div><div class="faq-item"><div class="faq-question">¿Es una suscripción?</div><p>No, pago único. Acceso de por vida a funciones Pro actuales y futuras.</p></div><div class="faq-item"><div class="faq-question">Política de reembolso</div><p>Reembolso total en 30 días. Escribe a <a href="mailto:hello@projekta2.com">hello@projekta2.com</a>.</p></div><div class="faq-item"><div class="faq-question">¿Dónde se almacenan mis datos?</div><p>Todo en almacenamiento local. Solo verificación de licencia con Gumroad.</p></div></div>
     <div class="card"><h2>💡 Consejos</h2><ul><li>Tarifa realista.</li><li>Ajusta minutos de gracia a 3‑5 min.</li><li>Ignora dominios de música (spotify, youtube).</li><li>Botón "Release Focus".</li></ul></div>
-    <div class="card"><h2>📧 Soporte</h2><p>Email: <strong>hello@projekta2.com</strong> — Visita <a href="https://projekta2.github.io/tabcost-landing/" target="_blank">projekta2.github.io/tabcost-landing/</a></p></div>
+    <div class="card"><h2>📧 Soporte y recursos</h2><p>Email: <a href="mailto:hello@projekta2.com">hello@projekta2.com</a></p><p>📄 <a href="https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md" target="_blank">Política de privacidad</a> · <a href="https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md" target="_blank">Soporte / FAQ</a> · <a href="https://github.com/projekta2/tabcost-pro-source" target="_blank">Código fuente (GitHub)</a></p><p>🌐 <a href="https://projekta2.github.io/tabcost-landing/" target="_blank">Página oficial</a> · <a href="https://github.com/projekta2" target="_blank">Perfil GitHub</a> · <a href="https://linkedin.com/in/alexiglesias1" target="_blank">LinkedIn (desarrollador)</a></p></div>
   </div>
-  <div class="footnote"><span>Version 1.5.3 · TabCost does not store or transmit personal data. Everything is local. · Made with ❤️ for Chromium.</span></div>
+  <div class="footnote">
+    <span id="footnote-text">Version 1.5.3 · Last update: May 2026 · TabCost does not store or transmit any personal data. Everything is local.</span>
+    <div class="footer-links">
+      <a href="https://github.com/projekta2/tabcost-privacy/blob/main/PRIVACY.md" target="_blank">Privacy</a>
+      <a href="https://github.com/projekta2/tabcost-support/blob/main/SUPPORT.md" target="_blank">Support</a>
+      <a href="https://github.com/projekta2/tabcost-pro-source" target="_blank">Source code</a>
+      <a href="https://projekta2.github.io/tabcost-landing/" target="_blank">Landing</a>
+    </div>
+  </div>
 </div>
 <a href="#" class="back-to-top" aria-label="Volver arriba">↑</a>
+
 <script>
   (function() {
-    // Language switcher
+    // LANGUAGE TOGGLE
     const enDiv = document.getElementById('content-en');
     const esDiv = document.getElementById('content-es');
+    const footnoteSpan = document.getElementById('footnote-text');
     const langBtns = document.querySelectorAll('.lang-btn');
     let currentLang = localStorage.getItem('tabcost_docs_lang') || 'en';
+
     function setLanguage(lang) {
-      if(lang === 'en') { enDiv.style.display = 'block'; esDiv.style.display = 'none'; document.documentElement.lang = 'en'; }
-      else { enDiv.style.display = 'none'; esDiv.style.display = 'block'; document.documentElement.lang = 'es'; }
-      langBtns.forEach(btn => { if(btn.getAttribute('data-lang') === lang) btn.classList.add('active'); else btn.classList.remove('active'); });
+      if (lang === 'en') {
+        enDiv.style.display = 'block';
+        esDiv.style.display = 'none';
+        footnoteSpan.innerText = 'Version 1.5.3 · Last update: May 2026 · TabCost does not store or transmit any personal data. Everything is local.';
+        document.documentElement.lang = 'en';
+      } else {
+        enDiv.style.display = 'none';
+        esDiv.style.display = 'block';
+        footnoteSpan.innerText = 'Versión 1.5.3 · Última actualización: mayo 2026 · TabCost no almacena ni transmite ningún dato personal. Todo es local.';
+        document.documentElement.lang = 'es';
+      }
+      langBtns.forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
       localStorage.setItem('tabcost_docs_lang', lang);
+      currentLang = lang;
     }
-    langBtns.forEach(btn => btn.addEventListener('click', (e) => { let lang = btn.getAttribute('data-lang'); if(lang !== currentLang) setLanguage(lang); }));
+    langBtns.forEach(btn => btn.addEventListener('click', () => { const lang = btn.getAttribute('data-lang'); if (lang !== currentLang) setLanguage(lang); }));
     setLanguage(currentLang);
-    // Carousel logic & chart dynamic render
+
+    // CAROUSEL
     let chartInstance = null;
     function renderHistoryChart() {
       const canvas = document.getElementById('histChart');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if(chartInstance) chartInstance.destroy();
+      if (!canvas) return;
+      if (chartInstance) chartInstance.destroy();
       const d30 = [38.4,47.2,52.1,44.8,31.2,8.4,5.2,55.6,71.2,78.4,61.8,49.2,12.1,6.8,42.3,38.9,45.2,41.7,35.4,11.2,9.4,28.4,22.1,31.5,19.8,24.6,7.2,5.4,18.9,14.2];
       const lbl30 = Array.from({length:30},(_,i)=>{let d=new Date(2025,4,1); d.setDate(i+1); return d.toLocaleDateString('en',{month:'short',day:'numeric'});});
       const clr = d30.map(v=>v>=60?'#f43f5e':v>=35?'#f97316':'#3b82f6');
-      chartInstance = new Chart(ctx, {
-        type:'bar', data:{labels:lbl30, datasets:[{data:d30,backgroundColor:clr,borderRadius:3,barPercentage:0.8}]},
-        options:{ responsive:true, maintainAspectRatio:true, plugins:{legend:{display:false}, tooltip:{callbacks:{label:ctx=>' $'+ctx.parsed.y.toFixed(2)}}},
-        scales:{x:{ticks:{color:'#475569',font:{size:8}},grid:{display:false}}, y:{ticks:{color:'#475569',callback:v=>'$'+v},grid:{color:'#1e293b'}}}
+      chartInstance = new Chart(canvas, {
+        type:'bar',
+        data:{labels:lbl30, datasets:[{data:d30, backgroundColor:clr, borderRadius:3, barPercentage:0.8}]},
+        options:{ responsive:true, maintainAspectRatio:true, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>' $'+ctx.parsed.y.toFixed(2)}} }, scales:{ x:{ ticks:{color:'#475569', font:{size:8}}, grid:{display:false} }, y:{ ticks:{color:'#475569', callback:v=>'$'+v}, grid:{color:'#1e293b'} } } }
       });
     }
     function showSlide(index) {
-      for(let i=1;i<=5;i++){ const slide=document.getElementById('slide'+i); if(slide) slide.style.display = i===index ? (i===1?'grid':(i===4?'grid':'block')) : 'none'; }
-      document.querySelectorAll('.nb').forEach(btn=>{ btn.classList.toggle('active', parseInt(btn.getAttribute('data-slide'))===index); });
-      if(index===3){ setTimeout(()=>{ if(document.getElementById('slide3').style.display !== 'none') renderHistoryChart(); }, 40); }
+      for(let i=1;i<=5;i++) {
+        const slide = document.getElementById('slide'+i);
+        if(slide) slide.style.display = i===index ? (i===1||i===4?'grid':'block') : 'none';
+      }
+      document.querySelectorAll('.nb').forEach(btn => { const slideNum = parseInt(btn.getAttribute('data-slide')); if(slideNum===index) btn.classList.add('active'); else btn.classList.remove('active'); });
+      if(index===3) setTimeout(()=>{ renderHistoryChart(); }, 50);
     }
-    document.querySelectorAll('.nb').forEach(btn=>{ btn.addEventListener('click',()=>{ let idx=parseInt(btn.getAttribute('data-slide')); if(!isNaN(idx)) showSlide(idx); }); });
-    // initial: slide 1 visible, others hidden
+    document.querySelectorAll('.nb').forEach(btn => btn.addEventListener('click', (e) => { const idx = parseInt(btn.getAttribute('data-slide')); if(!isNaN(idx)) showSlide(idx); }));
     showSlide(1);
-    window.addEventListener('resize', ()=>{ if(document.getElementById('slide3').style.display !== 'none') renderHistoryChart(); });
   })();
 </script>
 </body>
