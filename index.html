@@ -6,7 +6,7 @@
   <meta name="description" content="Complete guide and FAQ for TabCost, the extension that turns your inactive tabs into a real economic metric.">
   <title>TabCost – Complete Guide & FAQ</title>
   <style>
-    /* RESET + BASE (light theme, uniform background) */
+    /* RESET + BASE (light theme, custom background) */
     * {
       margin: 0;
       padding: 0;
@@ -15,7 +15,7 @@
 
     body {
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background: #f8fafc;   /* fixed light background – no dark mode inconsistency */
+      background: #f5f5f5;   /* requested background */
       color: #0f172a;
       line-height: 1.5;
       padding: 1.5rem 1rem;
@@ -26,12 +26,12 @@
       margin: 0 auto;
     }
 
-    /* Back to top button (fully responsive) */
+    /* Back to top button – black background */
     .back-to-top {
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: #2563eb;
+      background: #000000;   /* requested black */
       color: white;
       width: 44px;
       height: 44px;
@@ -49,7 +49,7 @@
     .back-to-top:hover {
       opacity: 1;
       transform: translateY(-3px);
-      background: #1d4ed8;
+      background: #222;
     }
     @media (max-width: 560px) {
       .back-to-top { width: 38px; height: 38px; font-size: 1.2rem; bottom: 1rem; right: 1rem; }
@@ -88,7 +88,7 @@
     .badge-free { background: #10b981; color: white; }
     .badge-pro { background: #f59e0b; color: #000; }
 
-    /* Language toggle – always visible and mobile‑friendly */
+    /* Language toggle – color #333 as requested */
     .lang-toggle {
       display: inline-flex;
       gap: 0.5rem;
@@ -106,7 +106,7 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 0.8rem;
-      color: #334155;
+      color: #333;           /* requested lang-switch color */
       transition: all 0.2s;
     }
     .lang-btn.active {
@@ -136,6 +136,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
 
+    /* headings without emojis – plain text */
     h2 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -199,6 +200,7 @@
     .feature-box ul {
       margin-bottom: 0;
     }
+    /* FAQ: remove emoji pseudo-element, use plain bold text */
     .faq-item {
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #e2e8f0;
@@ -208,14 +210,6 @@
       font-weight: 700;
       font-size: 1rem;
       margin-bottom: 0.5rem;
-      display: flex;
-      gap: 0.6rem;
-      align-items: baseline;
-    }
-    .faq-question:before {
-      content: "❓";
-      font-size: 1rem;
-      flex-shrink: 0;
     }
     .footnote {
       font-size: 0.8rem;
@@ -258,22 +252,22 @@
     </div>
   </div>
 
-  <!-- ENGLISH CONTENT -->
+  <!-- ENGLISH CONTENT (no emojis) -->
   <div id="content-en">
     <div class="card">
-      <h2>📌 What is TabCost?</h2>
+      <h2>What is TabCost?</h2>
       <p><strong>TabCost turns your inactive tabs into a real economic metric.</strong> It's not just a tab manager: it's an <strong>attention auditor</strong> that assigns a monetary value to the time you lose on abandoned tasks or distractions.</p>
       <p>It helps you to:</p>
       <ul>
-        <li>✅ Become aware of how much money "slips away" with forgotten tabs.</li>
-        <li>✅ Automatically close what you don't use (Pro option).</li>
-        <li>✅ Prioritize your focus where it really matters.</li>
-        <li>✅ <strong>Export the list of inactive tabs to CSV</strong> (Pro) to analyze your habits.</li>
+        <li>[+] Become aware of how much money "slips away" with forgotten tabs.</li>
+        <li>[+] Automatically close what you don't use (Pro option).</li>
+        <li>[+] Prioritize your focus where it really matters.</li>
+        <li>[+] <strong>Export the list of inactive tabs to CSV</strong> (Pro) to analyze your habits.</li>
       </ul>
     </div>
 
     <div class="card">
-      <h2>🎯 Who is it for?</h2>
+      <h2>Who is it for?</h2>
       <ul>
         <li><strong>Freelancers and self-employed</strong> who charge by the hour and want to minimize distractions.</li>
         <li><strong>Students and professionals</strong> who need to maintain concentration.</li>
@@ -284,7 +278,7 @@
     </div>
 
     <div class="card">
-      <h2>⚙️ How is the cost calculated?</h2>
+      <h2>How is the cost calculated?</h2>
       <p>The formula is very simple:</p>
       <p style="background: #f1f5f9; padding: 0.75rem; border-radius: 1rem; font-family: monospace; text-align: center; font-size: 1rem;">
         <strong>Cost per minute = (Hourly rate ÷ 60) × Impact percentage</strong>
@@ -298,10 +292,10 @@
     </div>
 
     <div class="card">
-      <h2>⭐ Features: Free vs Pro</h2>
+      <h2>Features: Free vs Pro</h2>
       <div class="grid-2">
         <div class="feature-box">
-          <h3>✅ Free (everyone)</h3>
+          <h3>Free (everyone)</h3>
           <ul>
             <li>See daily accumulated cost in the popup.</li>
             <li>Audit inactive tabs and their individual cost.</li>
@@ -311,23 +305,23 @@
           </ul>
         </div>
         <div class="feature-box feature-pro">
-          <h3>🚀 Pro ($5 USD/€5 EUR)</h3>
+          <h3>Pro ($5 USD/€5 EUR)</h3>
           <ul>
             <li>Ignore specific domains (e.g., Spotify, YouTube, Slack).</li>
             <li>Auto‑close tabs after X minutes.</li>
             <li>Full history with charts and CSV export of history.</li>
             <li>Adjust impact percentage and grace minutes.</li>
             <li>Daily reset button (↺) to start a fresh session.</li>
-            <li><strong>✨ Export current inactive tabs list to CSV</strong> (title, URL, minutes, cost).</li>
+            <li><strong>Export current inactive tabs list to CSV</strong> (title, URL, minutes, cost).</li>
             <li>Priority support and future updates.</li>
           </ul>
         </div>
       </div>
-      <p style="margin-top: 0.5rem;">🔑 <strong>Pro license:</strong> One‑time payment. No trial keys. Purchase directly from the extension’s popup or options page.</p>
+      <p style="margin-top: 0.5rem;">[key] <strong>Pro license:</strong> One‑time payment. No trial keys. Purchase directly from the extension’s popup or options page.</p>
     </div>
 
     <div class="card">
-      <h2>🆕 What's new (v1.5.3)</h2>
+      <h2>What's new (v1.5.3)</h2>
       <div class="changelog">
         <ul>
           <li><strong>New Pro feature:</strong> Export inactive tabs list to CSV. Save the full list of tabs that are costing you money, with URLs and inactivity minutes.</li>
@@ -339,24 +333,24 @@
     </div>
 
     <div class="card">
-      <h2>🕒 Detailed behavior: why the counter sometimes "stops"</h2>
+      <h2>Detailed behavior: why the counter sometimes "stops"</h2>
       <p>It's normal to see that the cost does not increase during long periods without interaction. This <strong>is not a bug</strong>, but a design feature of Chrome/Edge to save resources.</p>
-      <h3>🔁 Why does the counter stop?</h3>
+      <h3>Why does the counter stop?</h3>
       <p><strong>Short answer:</strong> Chrome suspends the extension when you don't use it to save battery and CPU.</p>
       <p><strong>Technical explanation:</strong> TabCost uses a service worker. If there is no interaction (you don't open the popup, you don't change tabs, you don't touch the browser), Chrome may stop it after a few seconds. When you interact again, the extension "wakes up" and recovers lost time, but <strong>only up to the last 15 minutes</strong> (default limit).</p>
-      <p>👉 So, if you leave your computer for 2 hours without touching anything, when you return only the last 15 minutes of inactivity will be counted. This is intentional to avoid background resource consumption.</p>
-      <h3>⏱️ Why does the active tab never generate cost?</h3>
+      <p>→ So, if you leave your computer for 2 hours without touching anything, when you return only the last 15 minutes of inactivity will be counted. This is intentional to avoid background resource consumption.</p>
+      <h3>Why does the active tab never generate cost?</h3>
       <p>Because the extension understands that if you are <em>looking at</em> a tab, it is not "inactive". Only tabs that have not been visited beyond the grace period are penalized.</p>
-      <h3>🧠 Why does a tab that was not counting start again after being abandoned?</h3>
+      <h3>Why does a tab that was not counting start again after being abandoned?</h3>
       <p>When you click on a tab (or reload it), TabCost records that moment as the last interaction. If you then leave it, it will start counting from zero after the grace minutes. This is expected behavior and ensures that actively used tabs are not penalized.</p>
       <div style="background: #f1f5f9; border-radius: 1rem; padding: 0.75rem; margin: 1rem 0;">
-        <p style="margin-bottom:0; font-weight:600;">✅ Conclusion:</p>
+        <p style="margin-bottom:0; font-weight:600;">Conclusion:</p>
         <p style="margin-bottom:0;">TabCost is accurate during normal activity (tab switching, browser usage). Only during prolonged inactivity does it apply the 15‑minute limit to protect performance. This is the standard way Chrome manages extensions.</p>
       </div>
     </div>
 
     <div class="card">
-      <h2>❓ Frequently Asked Questions (FAQ)</h2>
+      <h2>Frequently Asked Questions (FAQ)</h2>
       <div class="faq-item"><div class="faq-question">The extension doesn't count anything even though I have open tabs</div><p><strong>Most likely cause:</strong> you haven't set an hourly rate > 0. <strong>Solution:</strong> open the popup and click "Set your rate".</p></div>
       <div class="faq-item"><div class="faq-question">Can I use TabCost without an internet connection?</div><p>Yes, 100%. All calculation and storage is local. Internet is only needed to validate the Pro license (once) and to open the Gumroad purchase page.</p></div>
       <div class="faq-item"><div class="faq-question">Are my data sent to any server?</div><p>No. Everything is stored in Chrome's local storage. We don't even use analytics. Your privacy is absolute.</p></div>
@@ -365,11 +359,11 @@
       <div class="faq-item"><div class="faq-question">I purchased a Pro license, how do I activate it?</div><p>In the popup or options page, enter the code you received by email (format XXXX-XXXX-XXXX-XXXX) and click "Activate". You need an internet connection once.</p></div>
       <div class="faq-item"><div class="faq-question">Why doesn't the total cost exactly match my hourly rate?</div><p>The impact percentage (20% by default) applies a reduction: it represents that an inactive tab does not cost you 100% of your rate, but a proportional part. You can adjust this percentage between 10% and 50% in Pro.</p></div>
       <div class="faq-item"><div class="faq-question">Does the extension slow down the browser?</div><p>No. It only performs calculations once per minute while the service worker is active. It is extremely lightweight.</p></div>
-      <div class="faq-item"><div class="faq-question">How do I export the inactive tabs list to CSV?</div><p>If you are a Pro user, open the options panel and go to the "Critical Tabs Audit" section. You will see a blue button "📎 Export inactive tabs to CSV". Clicking it will download a CSV file with all currently inactive tabs.</p></div>
+      <div class="faq-item"><div class="faq-question">How do I export the inactive tabs list to CSV?</div><p>If you are a Pro user, open the options panel and go to the "Critical Tabs Audit" section. You will see a blue button "Export inactive tabs to CSV". Clicking it will download a CSV file with all currently inactive tabs.</p></div>
     </div>
 
     <div class="card">
-      <h2>💡 Tips to get the most out of TabCost</h2>
+      <h2>Tips to get the most out of TabCost</h2>
       <ul>
         <li><strong>Be honest with your rate:</strong> Set your real market rate (or what you would like to earn).</li>
         <li><strong>Adjust grace minutes</strong> (Pro) to 3‑5 minutes so that a short break does not generate cost.</li>
@@ -382,7 +376,7 @@
     </div>
 
     <div class="card">
-      <h2>⚠️ Known limitations (by design)</h2>
+      <h2>Known limitations (by design)</h2>
       <ul>
         <li>The service worker may be suspended by Chrome → cost only updates during activity periods or up to 15 minutes of recovery.</li>
         <li>History charts (Pro) show accumulated cost per day, not per hour.</li>
@@ -393,35 +387,35 @@
     </div>
 
     <div class="card">
-      <h2>📧 Support and contact</h2>
+      <h2>Support and contact</h2>
       <p>If you find a bug, have a suggestion, or need help with your license, write to us at: <strong>hello@projekta2.com</strong>. For license issues, always include your purchase code.</p>
       <p>You can also open the <strong>options panel</strong> (button "Advanced History & Reports" in the popup) for advanced settings and access to tab export.</p>
     </div>
 
     <div class="card">
-      <h2>❤️ Acknowledgements</h2>
+      <h2>Acknowledgements</h2>
       <p>TabCost was born to help digital professionals regain focus. Thank you for trusting this tool. <strong>Your attention is worth more than you think.</strong></p>
       <p>If TabCost has helped you become more productive, share it with a colleague.</p>
       <p style="margin-bottom: 0;">© 2026 TabCost – Made with passion for Chromium browsers.</p>
     </div>
   </div>
 
-  <!-- SPANISH CONTENT (hidden initially) -->
+  <!-- SPANISH CONTENT (no emojis) -->
   <div id="content-es" style="display: none;">
     <div class="card">
-      <h2>📌 ¿Qué es TabCost?</h2>
+      <h2>¿Qué es TabCost?</h2>
       <p><strong>TabCost convierte tus pestañas inactivas en una métrica económica real.</strong> No es un simple gestor de pestañas: es un <strong>auditor de tu atención</strong> que asigna un valor monetario al tiempo que pierdes en distracciones.</p>
       <p>Te ayuda a:</p>
       <ul>
-        <li>✅ Tomar conciencia de cuánto dinero "se escapa" con pestañas olvidadas.</li>
-        <li>✅ Cerrar automáticamente lo que no usas (opción Pro).</li>
-        <li>✅ Priorizar tu foco donde realmente importa.</li>
-        <li>✅ <strong>Exportar la lista de pestañas inactivas a CSV</strong> (Pro) para analizar tus hábitos.</li>
+        <li>[+] Tomar conciencia de cuánto dinero "se escapa" con pestañas olvidadas.</li>
+        <li>[+] Cerrar automáticamente lo que no usas (opción Pro).</li>
+        <li>[+] Priorizar tu foco donde realmente importa.</li>
+        <li>[+] <strong>Exportar la lista de pestañas inactivas a CSV</strong> (Pro) para analizar tus hábitos.</li>
       </ul>
     </div>
 
     <div class="card">
-      <h2>🎯 ¿A quién va dirigido?</h2>
+      <h2>¿A quién va dirigido?</h2>
       <ul>
         <li><strong>Freelancers y autónomos</strong> que cobran por hora.</li>
         <li><strong>Estudiantes y profesionales</strong> que necesitan mantener la concentración.</li>
@@ -432,7 +426,7 @@
     </div>
 
     <div class="card">
-      <h2>⚙️ ¿Cómo se calcula el coste?</h2>
+      <h2>¿Cómo se calcula el coste?</h2>
       <p>Fórmula:</p>
       <p style="background: #f1f5f9; padding: 0.75rem; border-radius: 1rem; font-family: monospace; text-align: center;">
         <strong>Coste por minuto = (Tarifa por hora ÷ 60) × Porcentaje de impacto</strong>
@@ -445,31 +439,31 @@
     </div>
 
     <div class="card">
-      <h2>⭐ Funciones: Gratis vs Pro</h2>
+      <h2>Funciones: Gratis vs Pro</h2>
       <div class="grid-2">
-        <div class="feature-box"><h3>✅ Gratuito (todos)</h3><ul><li>Ver coste diario en el popup.</li><li>Auditar pestañas inactivas.</li><li>Cerrar manualmente todas las inactivas.</li><li>Cambiar idioma (ES/EN).</li><li>Configurar tarifa y moneda.</li></ul></div>
-        <div class="feature-box feature-pro"><h3>🚀 Pro (5 USD/EUR)</h3><ul><li>Ignorar dominios específicos.</li><li>Cierre automático de pestañas.</li><li>Historial con gráficos y CSV.</li><li>Ajustar impacto y minutos de gracia.</li><li>Botón de reinicio diario (↺).</li><li>Exportar lista actual de pestañas inactivas a CSV.</li><li>Soporte prioritario.</li></ul></div>
+        <div class="feature-box"><h3>Gratuito (todos)</h3><ul><li>Ver coste diario en el popup.</li><li>Auditar pestañas inactivas.</li><li>Cerrar manualmente todas las inactivas.</li><li>Cambiar idioma (ES/EN).</li><li>Configurar tarifa y moneda.</li></ul></div>
+        <div class="feature-box feature-pro"><h3>Pro (5 USD/EUR)</h3><ul><li>Ignorar dominios específicos.</li><li>Cierre automático de pestañas.</li><li>Historial con gráficos y CSV.</li><li>Ajustar impacto y minutos de gracia.</li><li>Botón de reinicio diario (↺).</li><li>Exportar lista actual de pestañas inactivas a CSV.</li><li>Soporte prioritario.</li></ul></div>
       </div>
-      <p>🔑 <strong>Licencia Pro:</strong> Pago único. Cómprala directamente desde el popup de la extensión.</p>
+      <p>[key] <strong>Licencia Pro:</strong> Pago único. Cómprala directamente desde el popup de la extensión.</p>
     </div>
 
     <div class="card">
-      <h2>🆕 Novedades (v1.5.3)</h2>
+      <h2>Novedades (v1.5.3)</h2>
       <div class="changelog"><ul><li><strong>Nueva funcionalidad Pro:</strong> Exportación de pestañas inactivas a CSV.</li><li>Mejoras visuales en la tabla de auditoría.</li><li>Correcciones en moneda para gráficos.</li><li>Actualización de esta guía.</li></ul></div>
     </div>
 
     <div class="card">
-      <h2>🕒 Comportamiento detallado: por qué a veces "se para" el contador</h2>
+      <h2>Comportamiento detallado: por qué a veces "se para" el contador</h2>
       <p>Es normal que el coste no aumente durante largos periodos sin interacción. <strong>No es un error</strong>, es una característica de Chrome/Edge para ahorrar recursos.</p>
-      <h3>🔁 ¿Por qué se detiene?</h3>
+      <h3>¿Por qué se detiene?</h3>
       <p>Chrome suspende la extensión cuando no la usas. Al volver, recupera el tiempo perdido <strong>solo hasta los últimos 15 minutos</strong>.</p>
-      <h3>⏱️ ¿Por qué la pestaña activa nunca genera coste?</h3>
+      <h3>¿Por qué la pestaña activa nunca genera coste?</h3>
       <p>Porque la extensión entiende que si estás mirando una pestaña, no es “inactiva”.</p>
-      <div style="background:#f1f5f9; border-radius:1rem; padding:0.75rem;"><p style="margin-bottom:0; font-weight:600;">✅ Conclusión:</p><p>TabCost es preciso durante la actividad normal. Solo en inactividad prolongada aplica el límite de 15 minutos para proteger el rendimiento.</p></div>
+      <div style="background:#f1f5f9; border-radius:1rem; padding:0.75rem;"><p style="margin-bottom:0; font-weight:600;">Conclusión:</p><p>TabCost es preciso durante la actividad normal. Solo en inactividad prolongada aplica el límite de 15 minutos para proteger el rendimiento.</p></div>
     </div>
 
     <div class="card">
-      <h2>❓ Preguntas frecuentes (FAQ)</h2>
+      <h2>Preguntas frecuentes (FAQ)</h2>
       <div class="faq-item"><div class="faq-question">La extensión no cuenta nada aunque tenga pestañas abiertas</div><p>Causa probable: no has configurado tarifa por hora > 0. Ábrela y pon tu tarifa.</p></div>
       <div class="faq-item"><div class="faq-question">¿Puedo usarla sin internet?</div><p>Sí, 100%. Solo se necesita para validar la licencia Pro una vez.</p></div>
       <div class="faq-item"><div class="faq-question">¿Mis datos se envían a algún servidor?</div><p>No. Todo queda en el almacenamiento local de Chrome.</p></div>
@@ -482,7 +476,7 @@
     </div>
 
     <div class="card">
-      <h2>💡 Consejos para aprovechar TabCost al máximo</h2>
+      <h2>Consejos para aprovechar TabCost al máximo</h2>
       <ul>
         <li><strong>Sé honesto con tu tarifa:</strong> pon tu tarifa real de mercado.</li>
         <li><strong>Ajusta los minutos de gracia</strong> (Pro) a 3‑5 minutos.</li>
@@ -495,7 +489,7 @@
     </div>
 
     <div class="card">
-      <h2>⚠️ Limitaciones conocidas (por diseño)</h2>
+      <h2>Limitaciones conocidas (por diseño)</h2>
       <ul>
         <li>El service worker puede suspenderse → coste solo se actualiza hasta 15 minutos después.</li>
         <li>Los gráficos de historial muestran coste por día, no por hora.</li>
@@ -505,13 +499,13 @@
     </div>
 
     <div class="card">
-      <h2>📧 Soporte y contacto</h2>
+      <h2>Soporte y contacto</h2>
       <p>Si encuentras un error o necesitas ayuda, escríbenos a: <strong>hello@projekta2.com</strong>. Incluye tu código de compra para temas de licencia.</p>
       <p>También puedes abrir el <strong>panel de control</strong> de la extensión para ajustes avanzados.</p>
     </div>
 
     <div class="card">
-      <h2>❤️ Agradecimientos</h2>
+      <h2>Agradecimientos</h2>
       <p>TabCost nació para ayudar a profesionales digitales a recuperar el foco. <strong>Tu atención vale más de lo que crees.</strong></p>
       <p>Si TabCost te ha ayudado, compártelo con un colega.</p>
       <p style="margin-bottom: 0;">© 2026 TabCost – Hecho con pasión para navegadores Chromium.</p>
@@ -523,7 +517,7 @@
   </div>
 </div>
 
-<a href="#" class="back-to-top" aria-label="Volver arriba">↑</a>
+<a href="#" class="back-to-top" aria-label="Back to top">↑</a>
 
 <script>
   (function() {
