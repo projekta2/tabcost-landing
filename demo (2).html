@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TabCost Pro — Live Demo</title>
+<style>
+/* ── Design tokens ─────────────────────────────────────────────────── */
+:root {
+  --bg:        #0b0e17;
+  --surface:   #111827;
+  --surface2:  #1a2235;
+  --border:    #1e2d45;
+  --accent:    #2563eb;
+  --accent2:   #38bdf8;
+  --amber:     #f59e0b;
+  --green:     #10b981;
+  --danger:    #f43f5e;
+  --text:      #f1f5f9;
+  --muted:     #64748b;
+  --sub:       #94a3b8;
+
+  --popup-w:   340px;
+  --r:         14px;
+  --r-sm:      8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Page shell ────────────────────────────────────────────────────── */
+.page-hero {
+  text-align: center;
+  padding: 64px 24px 40px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37,99,235,0.12);
+  border: 1px solid rgba(37,99,235,0.3);
+  border-radius: 99px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-dot {
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(1.3); }
+}
+
+.hero-title {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.hero-title .grad {
+  background: linear-gradient(135deg, #f43f5e 0%, #f97316 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--sub);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.hero-cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 99px;
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+}
+.btn-primary:hover { background: #1d4ed8; }
+.btn-primary:active { transform: scale(.97); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--sub);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 14px 28px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.hero-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ── Stage ─────────────────────────────────────────────────────────── */
+.stage-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.stage-label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* fake browser chrome */
+.browser {
+  background: #1a1f2e;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.6);
+  position: relative;
+}
+
+.browser-bar {
+  background: #161b28;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.browser-dots { display: flex; gap: 6px; }
+.browser-dot {
+  width: 11px; height: 11px; border-radius: 50%;
+}
+.browser-dot.r { background: #ff5f57; }
+.browser-dot.y { background: #febc2e; }
+.browser-dot.g { background: #28c840; }
+
+.browser-url {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* fake extension icon in toolbar */
+.browser-ext {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ext-icon {
+  width: 28px; height: 28px;
+  background: var(--amber);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  transition: transform .15s;
+}
+.ext-icon:hover { transform: scale(1.1); }
+
+/* ── Browser content area ───────────────────────────────────────────── */
+.browser-content {
+  display: grid;
+  grid-template-columns: 1fr var(--popup-w);
+  min-height: 520px;
+}
+
+.browser-page {
+  background: #f8fafc;
+  color: #0f172a;
+  overflow: hidden;
+  position: relative;
+}
+
+/* fake web page */
+.fake-page-topbar {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fake-logo-dot {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg,#f97316,#ef4444);
+  border-radius: 6px;
+}
+
+.fake-logo-text {
+  font-weight: 700; font-size: 14px; color: #0f172a;
+}
+
+.fake-tab-bar {
+  display: flex;
+  background: #e2e8f0;
+  border-bottom: 1px solid #cbd5e1;
+  overflow: hidden;
+}
+
+.fake-tab {
+  padding: 8px 16px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+  border-right: 1px solid #cbd5e1;
+  cursor: default;
+  transition: background .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fake-tab.active {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.fake-tab.inactive {
+  color: #64748b;
+  background: #e2e8f0;
+}
+
+.tab-cost-pill {
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 99px;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+.tab-cost-pill.visible { opacity: 1; }
+
+.fake-page-body {
+  padding: 20px;
+}
+
+.fake-page-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.fake-page-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.fake-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.fake-table th {
+  background: #f1f5f9;
+  padding: 7px 10px;
+  text-align: left;
+  color: #475569;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.fake-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+}
+
+.fake-table tr:hover td { background: #f8fafc; }
+
+/* ── Extension Popup ────────────────────────────────────────────────── */
+.popup-panel {
+  background: #0b0f19;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.popup-inner {
+  padding: 16px;
+  flex: 1;
+}
+
+/* reuse exact popup styles */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 12px;
+  margin-bottom: 0;
+  gap: 8px;
+}
+
+.popup-logo {
+  font-weight: 800;
+  font-size: 16px;
+  color: #38bdf8;
+}
+
+.popup-header-right {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.lang-toggle {
+  display: flex; align-items: center;
+  background: #1e293b;
+  border-radius: 99px;
+  padding: 2px; gap: 2px;
+}
+
+.lang-btn {
+  border: none; background: transparent; cursor: pointer;
+  font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 99px;
+  color: #94a3b8; transition: all .15s; line-height: 1;
+}
+
+.lang-btn.active {
+  background: var(--accent); color: white;
+  box-shadow: 0 1px 3px rgba(37,99,235,.4);
+}
+
+.plan-badge {
+  font-size: 10px; padding: 2px 8px; border-radius: 99px;
+  font-weight: 700;
+}
+
+.plan-badge.free { background: #1e293b; color: #94a3b8; }
+.plan-badge.pro  { background: var(--amber); color: #000; }
+
+.main-card {
+  background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 100%);
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  margin: 16px 0;
+  position: relative;
+}
+
+.card-label {
+  font-size: 11px; color: #94a3b8;
+  text-transform: uppercase; letter-spacing: .07em; font-weight: 700;
+}
+
+.cost-display {
+  font-size: 42px; font-weight: 900; margin: 8px 0;
+  background: linear-gradient(to right, #f43f5e, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all .5s ease;
+}
+
+.sub-label { font-size: 11px; color: #94a3b8; }
+
+.currency-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  gap: 12px;
+}
+
+.currency-select {
+  background: #0b0f19;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #f1f5f9;
+  cursor: pointer;
+}
+
+.buy-pro-btn {
+  background-color: #10b981; color: white;
+  border: none; border-radius: 20px;
+  padding: 4px 12px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: background .2s;
+  text-decoration: none; display: inline-block;
+}
+.buy-pro-btn:hover { background-color: #059669; }
+
+.popup-btn {
+  width: 100%; background-color: var(--accent); color: white;
+  border: none; padding: 12px; border-radius: 8px;
+  font-weight: 700; font-size: 14px; cursor: pointer;
+  transition: background .2s;
+}
+.popup-btn:hover { background-color: #1d4ed8; }
+
+.popup-btn.secondary {
+  background-color: transparent;
+  border: 1px solid #1e293b; color: #94a3b8;
+  margin-top: 8px; font-weight: 500;
+}
+.popup-btn.secondary:hover { background-color: #1e293b; color: #f1f5f9; }
+
+.popup-footer {
+  display: flex; justify-content: space-between;
+  margin-top: 16px; font-size: 11px; color: #94a3b8;
+}
+.popup-footer a { color: #38bdf8; text-decoration: none; font-weight: 600; }
+
+.reset-btn {
+  position: absolute; top: 12px; right: 12px;
+  background: #1e293b; border: 1px solid #334155;
+  border-radius: 50%; width: 28px; height: 28px;
+  font-size: 14px; cursor: pointer; color: #94a3b8;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.reset-btn:hover { background: #f43f5e; color: white; border-color: #f43f5e; }
+
+/* options panel */
+.options-panel {
+  position: absolute; inset: 0;
+  background: #0b0f19;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+  padding: 0;
+  z-index: 5;
+}
+
+.options-panel.open { transform: translateX(0); }
+
+.options-header {
+  background: #111827;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.options-title { font-size: 15px; font-weight: 700; }
+
+.back-btn {
+  background: transparent; border: none; color: var(--sub);
+  font-size: 18px; cursor: pointer; padding: 0 4px;
+  transition: color .15s;
+}
+.back-btn:hover { color: var(--accent2); }
+
+.options-body { padding: 16px; }
+
+.opt-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.opt-card-title {
+  font-size: 13px; font-weight: 700; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.pro-tag {
+  background: var(--amber); color: #000;
+  border-radius: 99px; padding: 1px 8px;
+  font-size: 10px; font-weight: 700;
+}
+
+.opt-row {
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+  font-size: 12px; color: var(--sub);
+}
+.opt-row:last-child { border-bottom: none; }
+
+.opt-val {
+  font-size: 12px; font-weight: 600; color: var(--text);
+}
+
+.history-chart {
+  background: var(--surface);
+  border-radius: 8px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.bar-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 100%;
+  padding: 8px 6px 4px;
+}
+
+.bar {
+  flex: 1;
+  background: linear-gradient(to top, var(--accent), var(--accent2));
+  border-radius: 3px 3px 0 0;
+  transition: height .5s ease;
+  min-height: 4px;
+}
+
+.bar.today {
+  background: linear-gradient(to top, #f43f5e, #f97316);
+}
+
+.tab-audit {
+  margin-top: 8px;
+}
+
+.audit-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.audit-row:last-child { border-bottom: none; }
+
+.audit-favicon {
+  width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0;
+}
+
+.audit-title {
+  flex: 1; color: var(--sub);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.audit-cost {
+  font-weight: 700; font-size: 11px;
+  color: #f43f5e; flex-shrink: 0;
+}
+
+.audit-time {
+  font-size: 10px; color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Tooltip / Tour ──────────────────────────────────────────────────── */
+.tooltip-overlay {
+  position: fixed; inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.spotlight {
+  position: absolute;
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,.65);
+  transition: all .4s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+
+.tooltip-card {
+  position: absolute;
+  background: #1e293b;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 16px 18px;
+  width: 280px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(37,99,235,.25);
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+  pointer-events: all;
+}
+
+.tooltip-step {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--accent2); margin-bottom: 6px;
+}
+
+.tooltip-title {
+  font-size: 15px; font-weight: 800;
+  color: var(--text); margin-bottom: 8px; line-height: 1.3;
+}
+
+.tooltip-body {
+  font-size: 13px; color: var(--sub); line-height: 1.5; margin-bottom: 14px;
+}
+
+.tooltip-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+}
+
+.tooltip-dots {
+  display: flex; gap: 5px; align-items: center;
+}
+
+.tdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); transition: background .2s, transform .2s;
+}
+.tdot.active { background: var(--accent2); transform: scale(1.3); }
+
+.tnav-btn {
+  border: none; border-radius: 99px;
+  padding: 7px 16px; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+}
+
+.tnav-prev {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--sub);
+}
+.tnav-prev:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.tnav-next {
+  background: var(--accent); color: white;
+}
+.tnav-next:hover { background: #1d4ed8; }
+
+.tooltip-arrow {
+  position: absolute; width: 12px; height: 12px;
+  background: #1e293b;
+  border: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+
+/* ── Tour controls bar ──────────────────────────────────────────────── */
+.tour-bar {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--sub);
+  z-index: 999;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  transition: opacity .3s;
+}
+
+.tour-bar.hidden { opacity: 0; pointer-events: none; }
+
+.tour-play-btn {
+  background: var(--accent); color: white;
+  border: none; border-radius: 99px;
+  padding: 5px 14px; font-size: 12px; font-weight: 700;
+  cursor: pointer;
+}
+.tour-play-btn.pause { background: var(--border); color: var(--text); }
+
+.tour-progress {
+  width: 100px; height: 3px;
+  background: var(--border); border-radius: 99px; overflow: hidden;
+}
+.tour-progress-fill {
+  height: 100%; background: var(--accent2);
+  border-radius: 99px; transition: width .3s linear;
+}
+
+.tour-skip {
+  background: none; border: none; color: var(--muted);
+  font-size: 11px; cursor: pointer;
+  text-decoration: underline;
+}
+.tour-skip:hover { color: var(--sub); }
+
+/* ── Sections below demo ─────────────────────────────────────────────── */
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.feat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color .2s, transform .2s;
+}
+.feat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.feat-icon { font-size: 28px; margin-bottom: 12px; }
+.feat-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.feat-body { font-size: 14px; color: var(--sub); line-height: 1.5; }
+
+.feat-tag {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.25);
+  color: var(--amber);
+  border-radius: 99px;
+  padding: 2px 10px;
+  font-size: 11px; font-weight: 700;
+}
+
+.feat-tag.free {
+  background: rgba(16,185,129,.1);
+  border-color: rgba(16,185,129,.25);
+  color: var(--green);
+}
+
+/* ── Social proof ─────────────────────────────────────────────────────── */
+.social-strip {
+  max-width: 900px;
+  margin: 0 auto 64px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.quote-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.quote-body {
+  font-size: 14px; color: var(--sub); line-height: 1.6; margin-bottom: 12px;
+  font-style: italic;
+}
+
+.quote-author {
+  font-size: 12px; color: var(--muted); font-weight: 600;
+}
+
+.quote-stars { color: var(--amber); font-size: 12px; margin-bottom: 8px; }
+
+/* ── Pricing CTA ──────────────────────────────────────────────────────── */
+.pricing-cta {
+  text-align: center;
+  padding: 48px 24px 80px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.price-pill {
+  display: inline-block;
+  background: rgba(37,99,235,.1);
+  border: 1px solid rgba(37,99,235,.25);
+  border-radius: 99px;
+  padding: 6px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 20px;
+}
+
+.price-big {
+  font-size: 56px; font-weight: 900; letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.price-big .orig {
+  font-size: 28px; text-decoration: line-through; color: var(--muted);
+  margin-right: 8px;
+}
+
+.price-note { font-size: 14px; color: var(--sub); margin-bottom: 28px; }
+
+/* ── Notification mock ───────────────────────────────────────────────── */
+.notif-mock {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  background: #1e293b;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  width: 260px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  transform: translateX(280px);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  z-index: 10;
+  pointer-events: none;
+}
+.notif-mock.show { transform: translateX(0); }
+
+.notif-title { font-size: 12px; font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+.notif-body  { font-size: 12px; color: var(--sub); }
+
+/* ── Section headings ─────────────────────────────────────────────────── */
+.section-heading {
+  text-align: center;
+  padding: 48px 24px 32px;
+}
+.section-heading h2 {
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 800; letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.section-heading p {
+  font-size: 16px; color: var(--sub); max-width: 480px; margin: 0 auto;
+}
+
+/* ── Animations ──────────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+
+@keyframes counterUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: slideUp .5s ease forwards;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── Mobile ───────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .browser-content {
+    grid-template-columns: 1fr;
+  }
+  .popup-panel {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .browser-page { display: none; }
+}
+
+/* ── Highlight ring on active element ─────────────────────────────────── */
+.tour-highlight {
+  outline: 2px solid var(--accent2);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="page-hero animate-in">
+  <div class="hero-eyebrow">
+    <span class="hero-dot"></span>
+    Interactive Demo — No install required
+  </div>
+  <h1 class="hero-title">
+    Your idle tabs are<br>
+    costing you <span class="grad">real money</span>
+  </h1>
+  <p class="hero-sub">
+    TabCost Pro turns the invisible cost of distraction into a number you can't ignore.
+    Set your rate — see what your open tabs actually cost per day.
+  </p>
+  <div class="hero-cta-row">
+    <button class="btn-primary" id="startTourBtn">▶ Start guided tour</button>
+    <a href="https://chrome.google.com/webstore/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank" class="btn-ghost">Install free →</a>
+  </div>
+  <p class="hero-hint">Tour walks through all features in ~90 seconds · No signup needed</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DEMO STAGE
+═══════════════════════════════════════════════════════════ -->
+<div class="stage-wrap">
+  <p class="stage-label">Live interactive replica · Pixel-identical to the real extension</p>
+
+  <div class="browser" id="browserStage">
+    <!-- Browser chrome bar -->
+    <div class="browser-bar">
+      <div class="browser-dots">
+        <div class="browser-dot r"></div>
+        <div class="browser-dot y"></div>
+        <div class="browser-dot g"></div>
+      </div>
+      <div class="browser-url" id="urlBar">🔒 app.notion.so/workspace/projects</div>
+      <div class="browser-ext">
+        <div class="ext-icon" id="extIconBtn" title="Open TabCost">🪙</div>
+      </div>
+    </div>
+
+    <!-- Main area: fake page + popup panel -->
+    <div class="browser-content">
+
+      <!-- ── Fake webpage ── -->
+      <div class="browser-page">
+        <!-- Fake tab bar -->
+        <div class="fake-tab-bar" id="fakeTabBar">
+          <div class="fake-tab active">
+            <span>📋 Notion — Projects</span>
+          </div>
+          <div class="fake-tab inactive">
+            <span>🐦 Twitter</span>
+            <span class="tab-cost-pill" id="twitterPill">$0.18</span>
+          </div>
+          <div class="fake-tab inactive">
+            <span>📺 YouTube</span>
+            <span class="tab-cost-pill" id="youtubePill">$0.31</span>
+          </div>
+          <div class="fake-tab inactive">
+            <span>🗞 HN</span>
+            <span class="tab-cost-pill" id="hnPill">$0.09</span>
+          </div>
+          <div class="fake-tab inactive">
+            <span>📦 Amazon</span>
+            <span class="tab-cost-pill" id="amazonPill">$0.22</span>
+          </div>
+        </div>
+
+        <!-- Fake page topbar -->
+        <div class="fake-page-topbar">
+          <div class="fake-logo-dot"></div>
+          <span class="fake-logo-text">Notion</span>
+          <div style="flex:1"></div>
+          <span style="font-size:11px;color:#94a3b8;">Workspace · Projects</span>
+        </div>
+
+        <!-- Fake page body -->
+        <div class="fake-page-body">
+          <div class="fake-page-title">Q3 2026 — Active Projects</div>
+          <div class="fake-page-sub">Last updated: June 2026</div>
+          <table class="fake-table">
+            <thead>
+              <tr>
+                <th>Project</th><th>Owner</th><th>Status</th><th>Due</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Landing redesign</td><td>Alex</td><td>🟡 In progress</td><td>Jun 20</td></tr>
+              <tr><td>API v3 migration</td><td>Sara</td><td>🔴 Blocked</td><td>Jun 15</td></tr>
+              <tr><td>TabCost Pro 1.6</td><td>Alex</td><td>🟢 On track</td><td>Jul 1</td></tr>
+              <tr><td>Docs update</td><td>Marc</td><td>🟡 In progress</td><td>Jun 30</td></tr>
+              <tr><td>Chrome submission</td><td>Alex</td><td>⚪ Planned</td><td>Jul 10</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Browser notification mock -->
+        <div class="notif-mock" id="notifMock">
+          <div class="notif-title">🪙 TabCost — Focus Alert</div>
+          <div class="notif-body">You have lost <strong>$2.50</strong> today due to inactive tabs.</div>
+        </div>
+      </div>
+
+      <!-- ── Extension Popup Panel ── -->
+      <div class="popup-panel" id="popupPanel">
+        <div class="popup-inner" id="popupMain">
+
+          <div class="popup-header">
+            <span class="popup-logo">TabCost</span>
+            <div class="popup-header-right">
+              <div class="lang-toggle">
+                <button class="lang-btn" data-lang="es">ES</button>
+                <button class="lang-btn active" data-lang="en">EN</button>
+              </div>
+              <span class="plan-badge free" id="planBadgePop">FREE</span>
+            </div>
+          </div>
+
+          <div class="main-card" id="mainCard">
+            <button class="reset-btn" id="resetBtnPop" title="Reset today's cost to zero" style="display:none;">↺</button>
+            <div class="card-label" id="costLabel">Opportunity Cost Today</div>
+            <div class="cost-display" id="costVal">$0.00</div>
+            <div class="sub-label" id="rateVal">Set your hourly rate below</div>
+            <div class="currency-row">
+              <select class="currency-select" id="currPop">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+              <a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank" class="buy-pro-btn">Buy Pro ($5)</a>
+            </div>
+          </div>
+
+          <button class="popup-btn" id="closeTabsBtn">Release Focus &amp; Close Inactive</button>
+          <button class="popup-btn secondary" id="openOptionsBtn">Advanced History &amp; Reports</button>
+
+          <div class="popup-footer">
+            <span>Private local data</span>
+            <a href="#" id="unlockLink">Unlock Premium</a>
+            <a href="#" id="docsLinkPop">📘 Guide</a>
+          </div>
+        </div>
+
+        <!-- Options panel (slides in) -->
+        <div class="options-panel" id="optionsPanel">
+          <div class="options-header">
+            <button class="back-btn" id="backBtn">←</button>
+            <span class="options-title">Advanced Reports</span>
+            <span></span>
+          </div>
+          <div class="options-body">
+
+            <!-- Rate -->
+            <div class="opt-card">
+              <div class="opt-card-title">💰 Hourly Rate</div>
+              <div class="opt-row">
+                <span>Your rate</span>
+                <span class="opt-val">$75 / hour</span>
+              </div>
+              <div class="opt-row">
+                <span>Currency</span>
+                <span class="opt-val">USD</span>
+              </div>
+            </div>
+
+            <!-- History chart -->
+            <div class="opt-card">
+              <div class="opt-card-title">📈 Loss History <span class="pro-tag">PRO</span></div>
+              <div class="history-chart">
+                <div class="bar-wrap" id="histBars"></div>
+              </div>
+              <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">Last 14 days — total $18.43</div>
+            </div>
+
+            <!-- Tab audit -->
+            <div class="opt-card">
+              <div class="opt-card-title">🔍 Critical Tabs Audit</div>
+              <div class="tab-audit" id="tabAudit">
+                <div class="audit-row">
+                  <div class="audit-favicon" style="background:#1da1f2;border-radius:3px;"></div>
+                  <span class="audit-title">Twitter / X — Feed</span>
+                  <span class="audit-time">47 min</span>
+                  <span class="audit-cost">$0.47</span>
+                </div>
+                <div class="audit-row">
+                  <div class="audit-favicon" style="background:#ff0000;border-radius:3px;"></div>
+                  <span class="audit-title">YouTube — Recommended</span>
+                  <span class="audit-time">82 min</span>
+                  <span class="audit-cost">$0.82</span>
+                </div>
+                <div class="audit-row">
+                  <div class="audit-favicon" style="background:#f90;border-radius:3px;"></div>
+                  <span class="audit-title">Amazon — Search results</span>
+                  <span class="audit-time">29 min</span>
+                  <span class="audit-cost">$0.29</span>
+                </div>
+                <div class="audit-row">
+                  <div class="audit-favicon" style="background:#ff6600;border-radius:3px;"></div>
+                  <span class="audit-title">Hacker News</span>
+                  <span class="audit-time">18 min</span>
+                  <span class="audit-cost">$0.18</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pro settings -->
+            <div class="opt-card">
+              <div class="opt-card-title">⚙️ Pro Settings <span class="pro-tag">PRO</span></div>
+              <div class="opt-row">
+                <span>Grace period</span>
+                <span class="opt-val">5 min</span>
+              </div>
+              <div class="opt-row">
+                <span>Impact factor</span>
+                <span class="opt-val">20% of rate</span>
+              </div>
+              <div class="opt-row">
+                <span>Auto-close after</span>
+                <span class="opt-val">30 min</span>
+              </div>
+              <div class="opt-row">
+                <span>Alert threshold</span>
+                <span class="opt-val">$2.50</span>
+              </div>
+              <div class="opt-row">
+                <span>Notifications</span>
+                <span class="opt-val" style="color:var(--green);">Enabled</span>
+              </div>
+            </div>
+
+            <!-- Ignored domains -->
+            <div class="opt-card">
+              <div class="opt-card-title">🚫 Ignored Domains <span class="pro-tag">PRO</span></div>
+              <div class="opt-row"><span>notion.so</span><span class="opt-val" style="color:var(--green);">✓ Whitelisted</span></div>
+              <div class="opt-row"><span>figma.com</span><span class="opt-val" style="color:var(--green);">✓ Whitelisted</span></div>
+              <div class="opt-row"><span>github.com</span><span class="opt-val" style="color:var(--green);">✓ Whitelisted</span></div>
+            </div>
+
+            <a href="https://chrome.google.com/webstore/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank" style="display:block;text-align:center;margin-top:8px;">
+              <button class="popup-btn" style="background:var(--green);">Install the real extension →</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- end popup-panel -->
+
+    </div>
+    <!-- end browser-content -->
+  </div>
+  <!-- end browser -->
+</div>
+<!-- end stage-wrap -->
+
+<!-- ══════════════════════════════════════════════════════════
+     FEATURE CARDS
+═══════════════════════════════════════════════════════════ -->
+<div class="section-heading">
+  <h2>Everything in the extension, nothing hidden</h2>
+  <p>The demo above runs the real logic. Here's what you get.</p>
+</div>
+
+<div class="features-grid">
+  <div class="feat-card">
+    <div class="feat-icon">⏱️</div>
+    <div class="feat-title">Idle tab tracking</div>
+    <div class="feat-body">Tracks every tab that hasn't been clicked. After a configurable grace period, cost starts accumulating — at your exact hourly rate.</div>
+    <span class="feat-tag free">FREE</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">💸</div>
+    <div class="feat-title">Opportunity cost display</div>
+    <div class="feat-body">A single number in the popup: how much your idle tabs have cost you today. Reset any time (Pro). Switches between USD and EUR.</div>
+    <span class="feat-tag free">FREE</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🗑️</div>
+    <div class="feat-title">Close all inactive tabs</div>
+    <div class="feat-body">One button closes every tab that's been idle past the grace period. Instant focus reset. Works without a Pro license.</div>
+    <span class="feat-tag free">FREE</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">📈</div>
+    <div class="feat-title">365-day history chart</div>
+    <div class="feat-body">Daily loss history visualised as a bar chart. Exportable to CSV. Spot your worst distraction days at a glance.</div>
+    <span class="feat-tag">PRO</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🚫</div>
+    <div class="feat-title">Domain whitelist</div>
+    <div class="feat-body">Add your work tools (Notion, Figma, GitHub) so those tabs never count. Only truly idle, non-work tabs accumulate cost.</div>
+    <span class="feat-tag">PRO</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🤖</div>
+    <div class="feat-title">Auto-close idle tabs</div>
+    <div class="feat-body">Set a threshold (e.g. 30 min) and TabCost closes idle tabs automatically — keeping your browser lean without you lifting a finger.</div>
+    <span class="feat-tag">PRO</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔔</div>
+    <div class="feat-title">Push notifications</div>
+    <div class="feat-body">Get a browser notification when your daily cost crosses your threshold (default $2.50). A jolt of context when you need it most.</div>
+    <span class="feat-tag">PRO</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🌍</div>
+    <div class="feat-title">Bilingual — EN / ES</div>
+    <div class="feat-body">Every string in both English and Spanish. Switch mid-session. Your language preference is saved locally.</div>
+    <span class="feat-tag free">FREE</span>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔒</div>
+    <div class="feat-title">100% local — zero data sent</div>
+    <div class="feat-body">There is no TabCost server. All data lives in <code style="font-size:11px;background:var(--surface2);padding:1px 5px;border-radius:4px;">chrome.storage.local</code>. Nothing leaves your browser, ever.</div>
+    <span class="feat-tag free">FREE</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SOCIAL PROOF
+═══════════════════════════════════════════════════════════ -->
+<div class="social-strip">
+  <div class="quote-card">
+    <div class="quote-stars">★★★★★</div>
+    <div class="quote-body">"I had no idea YouTube alone was costing me $2.30 a day. Seeing that number made me close it permanently during work hours."</div>
+    <div class="quote-author">— Marc V., Freelance developer</div>
+  </div>
+  <div class="quote-card">
+    <div class="quote-stars">★★★★★</div>
+    <div class="quote-body">"The whitelist is the killer feature. My work tools don't count; only the distractions do. Finally a tool that actually knows the difference."</div>
+    <div class="quote-author">— Laura S., UX consultant, $95/h</div>
+  </div>
+  <div class="quote-card">
+    <div class="quote-stars">★★★★★</div>
+    <div class="quote-body">"Auto-close after 30 minutes is brutal and I love it. My browser is clean and my clients are billing full hours. Worth every cent."</div>
+    <div class="quote-author">— Diego P., Remote PM</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     PRICING CTA
+═══════════════════════════════════════════════════════════ -->
+<div class="pricing-cta">
+  <div class="price-pill">One-time · Lifetime · No subscription</div>
+  <div class="price-big"><span class="orig">$19</span>$5</div>
+  <p class="price-note">Unlock all Pro features forever. 30-day money-back guarantee, no questions asked.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="https://projekta2.gumroad.com/l/tabcost-pro" target="_blank">
+      <button class="btn-primary" style="font-size:16px;padding:16px 36px;">Get Pro — $5 lifetime</button>
+    </a>
+    <a href="https://chrome.google.com/webstore/detail/tabcost-pro/oifegknejkfiibmfapdfcgemclgmmghm" target="_blank">
+      <button class="btn-ghost" style="font-size:16px;padding:16px 36px;">Install free →</button>
+    </a>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:16px;">Free plan: core tracking · Pro: history, whitelist, auto-close, notifications, CSV export</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TOOLTIP OVERLAY (Tour)
+═══════════════════════════════════════════════════════════ -->
+<div class="tooltip-overlay" id="tourOverlay" style="display:none;">
+  <div class="spotlight" id="spotlight"></div>
+  <div class="tooltip-card" id="tooltipCard">
+    <div class="tooltip-step" id="ttStep">Step 1 of 8</div>
+    <div class="tooltip-title" id="ttTitle">Title</div>
+    <div class="tooltip-body"  id="ttBody">Body</div>
+    <div class="tooltip-nav">
+      <button class="tnav-btn tnav-prev" id="ttPrev">← Back</button>
+      <div class="tooltip-dots" id="ttDots"></div>
+      <button class="tnav-btn tnav-next" id="ttNext">Next →</button>
+    </div>
+    <div class="tooltip-arrow" id="ttArrow"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TOUR BAR
+═══════════════════════════════════════════════════════════ -->
+<div class="tour-bar hidden" id="tourBar">
+  <button class="tour-play-btn" id="tourPlayBtn">⏸ Pause</button>
+  <div class="tour-progress"><div class="tour-progress-fill" id="tourFill" style="width:0%"></div></div>
+  <span id="tourBarLabel">Step 1 / 8</span>
+  <button class="tour-skip" id="tourSkipBtn">End tour</button>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DEMO STATE
+// ═══════════════════════════════════════════════════════════
+let demoState = {
+  isPro: false,
+  dailyCost: 0,
+  hourlyRate: 75,
+  currency: 'USD',
+  lang: 'en'
+};
+
+let costTick = null;
+
+function symbol() { return demoState.currency === 'EUR' ? '€' : '$'; }
+
+function updateCostDisplay(val) {
+  const el = document.getElementById('costVal');
+  const prev = parseFloat(el.textContent.replace(/[^0-9.]/g,'')) || 0;
+  const target = val;
+  const dur = 600;
+  const start = performance.now();
+  function animate(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
+    const cur = prev + (target - prev) * ease;
+    el.textContent = symbol() + cur.toFixed(2);
+    if (p < 1) requestAnimationFrame(animate);
+    else el.textContent = symbol() + target.toFixed(2);
+  }
+  requestAnimationFrame(animate);
+  document.getElementById('rateVal').textContent =
+    `Based on ${symbol()}${demoState.hourlyRate}/h (20% impact)`;
+}
+
+function startCostTicker() {
+  if (costTick) return;
+  // increment roughly $0.25 every minute at $75/h with 20% impact
+  // = $0.25/min, demo runs 10x speed for visibility
+  costTick = setInterval(() => {
+    demoState.dailyCost += 0.04;
+    updateCostDisplay(demoState.dailyCost);
+    // show cost pills on fake tabs
+    document.querySelectorAll('.tab-cost-pill').forEach(p => p.classList.add('visible'));
+  }, 2000);
+}
+
+function stopCostTicker() {
+  if (costTick) { clearInterval(costTick); costTick = null; }
+}
+
+// ── Build history bars ──────────────────────────────────────
+function buildHistoryBars() {
+  const data = [0.4,0.8,1.2,0.6,1.8,2.1,0.9,1.5,1.1,2.3,1.7,0.5,1.3,3.1];
+  const max = Math.max(...data);
+  const container = document.getElementById('histBars');
+  container.innerHTML = '';
+  data.forEach((v, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (i === data.length-1 ? ' today' : '');
+    bar.style.height = Math.max(8, (v/max)*100) + '%';
+    bar.title = `$${v.toFixed(2)}`;
+    container.appendChild(bar);
+  });
+}
+buildHistoryBars();
+
+// ── Options panel toggle ──────────────────────────────────────
+document.getElementById('openOptionsBtn').addEventListener('click', () => {
+  document.getElementById('optionsPanel').classList.add('open');
+});
+document.getElementById('backBtn').addEventListener('click', () => {
+  document.getElementById('optionsPanel').classList.remove('open');
+});
+
+// ── Close tabs button demo ────────────────────────────────────
+document.getElementById('closeTabsBtn').addEventListener('click', () => {
+  const tabs = document.querySelectorAll('.fake-tab.inactive');
+  tabs.forEach((t,i) => {
+    setTimeout(() => {
+      t.style.transition = 'opacity .25s, transform .25s';
+      t.style.opacity = '0';
+      t.style.transform = 'scale(.9)';
+      setTimeout(() => t.remove(), 280);
+    }, i * 120);
+  });
+  demoState.dailyCost = 0;
+  setTimeout(() => updateCostDisplay(0), 600);
+  setTimeout(() => {
+    showDemoToast('Closed 4 inactive tabs');
+  }, 600);
+});
+
+// ── Reset cost button ─────────────────────────────────────────
+document.getElementById('resetBtnPop').addEventListener('click', () => {
+  demoState.dailyCost = 0;
+  updateCostDisplay(0);
+  showDemoToast('Daily cost reset to 0');
+});
+
+// ── Currency selector ─────────────────────────────────────────
+document.getElementById('currPop').addEventListener('change', e => {
+  demoState.currency = e.target.value;
+  updateCostDisplay(demoState.dailyCost);
+});
+
+// ── Toast helper ──────────────────────────────────────────────
+function showDemoToast(msg, type = 'success') {
+  document.querySelectorAll('.demo-toast').forEach(t => t.remove());
+  const t = document.createElement('div');
+  t.className = 'demo-toast';
+  t.style.cssText = `
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:#1e293b;color:#f8fafc;padding:10px 20px;
+    border-radius:99px;font-size:13px;font-weight:600;
+    box-shadow:0 4px 16px rgba(0,0,0,.4);white-space:nowrap;
+    border-left:4px solid ${type==='success'?'#22c55e':'#f43f5e'};
+    z-index:2000;animation:toastIn .2s ease;
+  `;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 2200);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  GUIDED TOUR
+// ═══════════════════════════════════════════════════════════
+const STEPS = [
+  {
+    target: '#extIconBtn',
+    title: 'One click to see everything',
+    body: 'The TabCost icon lives in your Chrome toolbar. Click it any time to open the popup and see your real-time opportunity cost. No new tabs, no dashboards.',
+    position: 'bottom-left',
+    action: () => {}
+  },
+  {
+    target: '#costVal',
+    title: 'Your daily cost — live',
+    body: 'This number updates every minute. It\'s not an estimate: it\'s calculated from your hourly rate × idle time × your impact factor (default 20%). Right now it\'s climbing.',
+    position: 'left',
+    action: () => {
+      demoState.dailyCost = 1.47;
+      updateCostDisplay(1.47);
+      startCostTicker();
+    }
+  },
+  {
+    target: '#fakeTabBar',
+    title: 'Idle tabs, exposed',
+    body: 'Every tab that hasn\'t been clicked in 5+ minutes gets a cost pill. Twitter: $0.18. YouTube: $0.31. Those aren\'t fake — that\'s your rate times their idle minutes.',
+    position: 'bottom-center',
+    action: () => {
+      document.querySelectorAll('.tab-cost-pill').forEach(p => p.classList.add('visible'));
+    }
+  },
+  {
+    target: '#closeTabsBtn',
+    title: 'Close all idle tabs — one tap',
+    body: '"Release Focus & Close Inactive" closes every tab past the grace period instantly. No confirmation dialog. Your active tab stays open. Losses stop immediately.',
+    position: 'left',
+    action: () => {}
+  },
+  {
+    target: '#mainCard',
+    title: 'Free vs Pro at a glance',
+    body: 'Free gives you tracking, cost display, tab closing, and bilingual UI. Pro unlocks the reset button, 365-day history, CSV export, domain whitelist, auto-close, and push notifications.',
+    position: 'left',
+    action: () => {
+      // simulate upgrading to pro
+      demoState.isPro = true;
+      document.getElementById('planBadgePop').textContent = 'PRO';
+      document.getElementById('planBadgePop').className = 'plan-badge pro';
+      document.getElementById('resetBtnPop').style.display = 'flex';
+    }
+  },
+  {
+    target: '#openOptionsBtn',
+    title: 'Advanced history & reports',
+    body: 'Click to open the full control panel: 14-day bar chart, full tab audit ranked by cost, pro settings, and the domain whitelist. All of this is stored 100% locally.',
+    position: 'top',
+    action: () => {
+      document.getElementById('optionsPanel').classList.add('open');
+    }
+  },
+  {
+    target: '#histBars',
+    title: '365-day loss history',
+    body: 'Each bar is one day. The red bar is today. Hover a bar to see the exact amount. Export the full history to CSV for your accountant or time-tracking records.',
+    position: 'right',
+    action: () => {}
+  },
+  {
+    target: '#tabAudit',
+    title: 'Tab audit — ranked by cost',
+    body: 'Every idle tab ranked by how much it\'s cost you. Name, inactive time, dollar amount. Use this to decide which habits to cut — not which apps to blame.',
+    position: 'right',
+    action: () => {
+      // show notification mock
+      document.getElementById('notifMock').classList.add('show');
+      setTimeout(() => document.getElementById('notifMock').classList.remove('show'), 3500);
+    }
+  }
+];
+
+let currentStep = 0;
+let tourPlaying = true;
+let stepTimer = null;
+const STEP_DURATION = 6000;
+
+function buildDots() {
+  const el = document.getElementById('ttDots');
+  el.innerHTML = '';
+  STEPS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'tdot' + (i === currentStep ? ' active' : '');
+    d.addEventListener('click', () => goStep(i));
+    el.appendChild(d);
+  });
+}
+
+function getTargetRect(selector) {
+  const el = document.querySelector(selector);
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return r;
+}
+
+function positionTooltip(targetRect, position) {
+  const card = document.getElementById('tooltipCard');
+  const arrow = document.getElementById('ttArrow');
+  const cw = 280, ch = 160; // approx
+  const pad = 16;
+  let top, left, arrowStyle = '';
+
+  if (!targetRect) {
+    // center
+    top = window.innerHeight / 2 - 100;
+    left = window.innerWidth / 2 - cw / 2;
+    arrow.style.display = 'none';
+    card.style.top = top + 'px';
+    card.style.left = left + 'px';
+    return;
+  }
+
+  arrow.style.display = 'block';
+
+  switch(position) {
+    case 'bottom-left':
+      top  = targetRect.bottom + pad;
+      left = Math.max(pad, targetRect.right - cw);
+      arrowStyle = `top:-7px;left:${Math.min(cw - 30, targetRect.left - left + targetRect.width/2 - 6)}px`;
+      break;
+    case 'bottom-center':
+      top  = targetRect.bottom + pad;
+      left = Math.max(pad, targetRect.left + targetRect.width/2 - cw/2);
+      arrowStyle = `top:-7px;left:${cw/2 - 6}px`;
+      break;
+    case 'left':
+      top  = targetRect.top + targetRect.height/2 - 90;
+      left = targetRect.left - cw - pad;
+      if (left < pad) { left = targetRect.right + pad; arrowStyle = `top:80px;left:-7px`; }
+      else arrowStyle = `top:80px;right:-7px;left:auto`;
+      break;
+    case 'right':
+      top  = targetRect.top + targetRect.height/2 - 90;
+      left = targetRect.right + pad;
+      arrowStyle = `top:80px;left:-7px`;
+      break;
+    case 'top':
+      top  = targetRect.top - ch - pad;
+      left = Math.max(pad, targetRect.left + targetRect.width/2 - cw/2);
+      arrowStyle = `bottom:-7px;left:${cw/2 - 6}px`;
+      break;
+    default:
+      top  = targetRect.bottom + pad;
+      left = Math.max(pad, targetRect.left);
+      arrowStyle = `top:-7px;left:20px`;
+  }
+
+  // clamp
+  top  = Math.max(pad, Math.min(top,  window.innerHeight - ch  - pad));
+  left = Math.max(pad, Math.min(left, window.innerWidth  - cw  - pad));
+
+  card.style.top  = top  + 'px';
+  card.style.left = left + 'px';
+
+  if (arrowStyle) {
+    arrow.setAttribute('style', arrowStyle);
+  }
+}
+
+function highlightTarget(selector) {
+  document.querySelectorAll('.tour-highlight').forEach(e => e.classList.remove('tour-highlight'));
+  const el = document.querySelector(selector);
+  if (el) {
+    el.classList.add('tour-highlight');
+    el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+}
+
+function updateSpotlight(targetRect) {
+  const sp = document.getElementById('spotlight');
+  if (!targetRect) {
+    sp.style.display = 'none';
+    return;
+  }
+  const pad = 8;
+  sp.style.display = 'block';
+  sp.style.top    = (targetRect.top    - pad + window.scrollY) + 'px';
+  sp.style.left   = (targetRect.left   - pad) + 'px';
+  sp.style.width  = (targetRect.width  + pad*2) + 'px';
+  sp.style.height = (targetRect.height + pad*2) + 'px';
+}
+
+function goStep(n, fromClick = false) {
+  clearStepTimer();
+
+  // close options panel if going back to earlier steps
+  if (n < 5) {
+    document.getElementById('optionsPanel').classList.remove('open');
+  }
+
+  currentStep = Math.max(0, Math.min(n, STEPS.length - 1));
+  const step = STEPS[currentStep];
+
+  // Run the action for this step
+  step.action();
+
+  // Update tooltip text
+  document.getElementById('ttStep').textContent  = `Step ${currentStep+1} of ${STEPS.length}`;
+  document.getElementById('ttTitle').textContent = step.title;
+  document.getElementById('ttBody').textContent  = step.body;
+  document.getElementById('ttPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+  document.getElementById('ttNext').textContent  = currentStep === STEPS.length-1 ? 'Finish ✓' : 'Next →';
+
+  // Position
+  const rect = getTargetRect(step.target);
+  positionTooltip(rect, step.position);
+  updateSpotlight(rect);
+  highlightTarget(step.target);
+  buildDots();
+
+  // Tour bar progress
+  const pct = ((currentStep) / (STEPS.length - 1)) * 100;
+  document.getElementById('tourFill').style.width = pct + '%';
+  document.getElementById('tourBarLabel').textContent = `Step ${currentStep+1} / ${STEPS.length}`;
+
+  // Auto-advance
+  if (tourPlaying && currentStep < STEPS.length - 1) {
+    startStepTimer();
+  }
+  if (currentStep === STEPS.length - 1) {
+    document.getElementById('tourPlayBtn').textContent = '↺ Restart';
+    document.getElementById('tourPlayBtn').classList.add('pause');
+  }
+}
+
+function startStepTimer() {
+  clearStepTimer();
+  let elapsed = 0;
+  const tick = 100;
+  stepTimer = setInterval(() => {
+    elapsed += tick;
+    const pct = ((currentStep + elapsed/STEP_DURATION) / (STEPS.length - 1)) * 100;
+    document.getElementById('tourFill').style.width = Math.min(100, pct) + '%';
+    if (elapsed >= STEP_DURATION) {
+      clearStepTimer();
+      if (currentStep < STEPS.length - 1) goStep(currentStep + 1);
+    }
+  }, tick);
+}
+
+function clearStepTimer() {
+  if (stepTimer) { clearInterval(stepTimer); stepTimer = null; }
+}
+
+function startTour() {
+  document.getElementById('tourOverlay').style.display = 'block';
+  document.getElementById('tourBar').classList.remove('hidden');
+  tourPlaying = true;
+  document.getElementById('tourPlayBtn').textContent = '⏸ Pause';
+  document.getElementById('tourPlayBtn').classList.remove('pause');
+  startCostTicker();
+  goStep(0);
+}
+
+function endTour() {
+  clearStepTimer();
+  stopCostTicker();
+  document.getElementById('tourOverlay').style.display = 'none';
+  document.getElementById('tourBar').classList.add('hidden');
+  document.getElementById('optionsPanel').classList.remove('open');
+  document.querySelectorAll('.tour-highlight').forEach(e => e.classList.remove('tour-highlight'));
+}
+
+// Controls
+document.getElementById('startTourBtn').addEventListener('click', startTour);
+
+document.getElementById('ttNext').addEventListener('click', () => {
+  if (currentStep === STEPS.length - 1) { endTour(); return; }
+  goStep(currentStep + 1, true);
+});
+
+document.getElementById('ttPrev').addEventListener('click', () => {
+  goStep(currentStep - 1, true);
+});
+
+document.getElementById('tourPlayBtn').addEventListener('click', () => {
+  if (document.getElementById('tourPlayBtn').textContent.includes('Restart')) {
+    currentStep = 0;
+    demoState.isPro = false;
+    demoState.dailyCost = 0;
+    document.getElementById('planBadgePop').textContent = 'FREE';
+    document.getElementById('planBadgePop').className = 'plan-badge free';
+    document.getElementById('resetBtnPop').style.display = 'none';
+    updateCostDisplay(0);
+    startTour();
+    return;
+  }
+  tourPlaying = !tourPlaying;
+  if (tourPlaying) {
+    document.getElementById('tourPlayBtn').textContent = '⏸ Pause';
+    document.getElementById('tourPlayBtn').classList.remove('pause');
+    startStepTimer();
+  } else {
+    clearStepTimer();
+    document.getElementById('tourPlayBtn').textContent = '▶ Play';
+    document.getElementById('tourPlayBtn').classList.add('pause');
+  }
+});
+
+document.getElementById('tourSkipBtn').addEventListener('click', endTour);
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (document.getElementById('tourOverlay').style.display === 'none') return;
+  if (e.key === 'ArrowRight' || e.key === 'Space') { e.preventDefault(); if(currentStep < STEPS.length-1) goStep(currentStep+1,true); else endTour(); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); goStep(currentStep-1, true); }
+  if (e.key === 'Escape')     endTour();
+});
+
+// Recalculate positions on resize/scroll
+window.addEventListener('resize', () => {
+  if (document.getElementById('tourOverlay').style.display !== 'none') {
+    const step = STEPS[currentStep];
+    const rect = getTargetRect(step.target);
+    positionTooltip(rect, step.position);
+    updateSpotlight(rect);
+  }
+});
+
+// ── Start tour automatically after 2.5s if user hasn't scrolled ──────
+let hasInteracted = false;
+document.addEventListener('scroll', () => { hasInteracted = true; }, { once: true });
+document.addEventListener('click',  () => { hasInteracted = true; }, { once: true });
+setTimeout(() => {
+  if (!hasInteracted) startTour();
+}, 2500);
+
+// Inject toast keyframes
+const style = document.createElement('style');
+style.textContent = `@keyframes toastIn { from { opacity:0; bottom:60px; } to { opacity:1; bottom:80px; } }`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
